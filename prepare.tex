@@ -1,0 +1,79 @@
+\chapter{前言}
+
+本讲义是2023年7月作者举办的面向新二年级同学的近世代数讲义.
+使用讲义的时候, 作者默认了读者学习了北师大的高等代数I, II课程.
+
+部分参考书籍与我们推荐阅读的书籍如下:
+对于中文书籍, \parencite{BNU}~是北师大近世代数课程的教材; 而~\parencite{wwli}~则是一本比较``升级''的教材, 介绍了更加现代的内容.
+对于英文书籍, \parencite{Hungerford}~是标准的教材;
+\parencite{Chapter0}~是一本偏向入门的书籍, 但在一开始便以较高观点引入范畴等内容, 适合作为研究生级别教材学习;
+\parencite{Lang}~是著名的字典, 以大而全闻名, 适合用来查阅.
+
+\chapter{预备知识}
+
+我们具体列举希望读者掌握的预备知识如下.
+
+首先, 讲义中会使用与北师大高等代数课程不同的记号$\mathbb{Z}/n\mathbb{Z}$表示模$n$剩余类环, 并且会直接使用同余记号$\mathrm{mod}$记属于同一等价类的元素.
+
+接下来我们定义群环域.
+\begin{defn}设$X$是一个集合, 具有二元运算$*:X\times X\to X$, 并有公理
+    \begin{itemize}
+        \item[G1] 对$a,b,c\in X$有$(a*b)*c=a*(b*c)$;
+        \item[G2] 存在$e\in X$, 使得对任意$a\in X$有$a*e=e*a=a$;
+        \item[G3] 对$a\in X$, 存在$b\in X$使得$a*b=b*a=e$;
+        \item[Ab] 对任意$a,b\in X$, 有$a*b=b*a$;
+    \end{itemize}
+    如果$X$上还有另一二元运算$\cdot:X\times X\to X$, 此时还有公理
+    \begin{itemize}
+        \item[R1] 对$a,b,c\in X$有$(a\cdot b)\cdot c=a\cdot(b\cdot c)$;
+        \item[R2] 存在$1\in X$, 使得对任意$a\in X$有$a\cdot 1=1\cdot a=a$;
+        \item[R3] 对任意$a,b\in X$, 有$a\cdot b=b\cdot a$;
+        \item[Ds] 对$a,b,c\in X$有$(a*b)\cdot c=a\cdot c*b\cdot c, a\cdot(b*c)=a\cdot b*a\cdot c$;
+        \item[F] 对任意$a\in X\backslash\{e\}$, 存在$b\in X$使得$a\cdot b=1$;
+    \end{itemize}
+    如果$X$满足G1$\sim$G3, 那么称$X$是一个\textbf{群}; 如果群$X$还满足Ab, 则称$X$是一个\textbf{Abel群}.
+    如果$X$是Abel群, 且满足R1与Ds, 那么称$X$是一个\textbf{环}; 如果环$X$满足R2, 那么称$X$\textbf{含幺}; 如果环$X$满足R3, 那么称$X$是\textbf{交换环}.
+    如果$X$是交换环且满足F, 那么称$X$是一个\textbf{域}.
+\end{defn}
+
+\begin{sym}
+    习惯上, 一般对群的运算会采用两种记号: 一种是乘法记号$\cdot$, 在实际书写中会直接省略这个点; 另一种是加法记号$+$.
+    乘法记号会用在一般的群或者环满足R1与Ds的运算上, 加法记号会用在Abel群的运算上.
+    运用乘法记号时, G3中定义的逆元会记作$a^{-1}$.
+    运用加法记号时, G2中定义的加法零元记为$0$, G3中定义的逆元记为$-a$.
+    对域而言, F中定义的逆元记为$a^{-1}$.
+
+    本讲义中如果不另外说明, 环都是含幺的.
+
+    习惯上会用一些特定的字母表示特定的代数结构, 例如群用$G$表示, 环用$R$表示, 交换环用$A$表示, 域用$F$或$k$表示.
+\end{sym}
+
+然后是置换群的基本概念.
+\begin{prop}
+    集合$\{1,2,\cdots,n\}$到自身的双射构成群, 记为$S_n$, 称为{\bf $n$阶置换群}.
+\end{prop}
+
+\begin{sym}
+    对$\sigma\in S_n$, 我们会用
+    \[\begin{pmatrix}
+        1 & \cdots & n\\
+        \sigma(1) & \cdots & \sigma(n)
+    \end{pmatrix}\]
+    来表示一个置换.
+\end{sym}
+
+\begin{prop}
+    一个{\bf 轮换}定义为
+    \[\begin{pmatrix}
+        a_1 & a_2 & \cdots & a_n\\
+        a_2 & a_3 & \cdots & a_1
+    \end{pmatrix}\]
+    记为$(a_1a_2\cdots a_n)$.
+    每一个置换都可以写成不相交轮换的乘积, 这种写法在不计次序的意义下唯一.
+\end{prop}
+
+最后是关于矩阵的两种群.
+\begin{defn}
+    域$k$上的$n$阶\textbf{一般线性群}$\GL_n(k)$定义为$k$上所有可逆的$n$阶矩阵构成的群.
+    域$k$上的$n$阶\textbf{特殊线性群}$\SL_n(k)$定义为$k$上所有行列式为$1$的$n$阶矩阵构成的群.
+\end{defn}

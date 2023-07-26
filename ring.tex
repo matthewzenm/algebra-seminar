@@ -1,0 +1,395 @@
+\chapter{交换环}\label{ring}
+在第~\ref{structures}~章讨论了环的理想之后, 我们开始具体地讨论交换环的结构.
+
+\section{理想与整环}
+
+\subsection{素理想与极大理想}
+
+\begin{defn}
+    称环$A$的子集$S$为\textbf{乘闭子集}, 如果$S$满足$0\notin S,1\in S$, 且对$x,y\in S$有$xy=S$.
+\end{defn}
+
+我们首先定义两种重要的理想.
+\begin{defn}
+    设$\mathfrak{p}$是环$A$的真理想, 如果$\mathfrak{p}$满足对$a,b\in R$, $ab\in\mathfrak{p}$可以推出$a\in\mathfrak{p}$或$b\in\mathfrak{p}$, 那么称$\mathfrak{p}$为\textbf{素理想}.
+    所有素理想的集合记为$\Spec{A}$.
+\end{defn}
+
+素理想有一种等价的刻画:
+\begin{prop}
+    设$\mathfrak{p}$是环$A$的理想, 那么以下命题等价:
+    \begin{enumerate}[\rm (1)]
+        \item $\mathfrak{p}$是素理想;
+        \item $R\backslash\mathfrak{p}$是乘闭的;
+    \end{enumerate}
+\end{prop}
+\begin{proof}
+    仅仅是重述了一遍素理想的定义.
+\end{proof}
+
+\begin{defn}
+    设$\mathfrak{m}$是环$A$的真理想, 如果对任意真理想$\mathfrak{a}$, $\mathfrak{m}\subset\mathfrak{a}$可以推出$\mathfrak{m}=\mathfrak{a}$, 那么称$\mathfrak{m}$为$A$的一个\textbf{极大理想}.
+    换言之, 极大理想是环$A$的真理想以包含关系为偏序的极大元.
+    所有极大理想的集合记为$\MaxSpec{A}$.
+\end{defn}
+
+我们在本小节需要证明的中心结论是极大理想的存在性.
+
+\begin{lem}[Zorn]
+    设$(X,\prec)$是非空偏序集, 如果$X$中任意一条链均有上界, 那么$X$中存在极大元.
+\end{lem}
+\begin{proof}
+    Zorn引理等价于选择公理, 参阅~\parencite[附录~2.2]{Lang}.
+\end{proof}
+
+\begin{prop}
+    设$\mathfrak{a}$是$A$的一个真理想, 那么存在极大理想$\mathfrak{m}$使得$\mathfrak{a}\subset\mathfrak{m}$.
+\end{prop}
+\begin{proof}
+    定义$\mathscr{I}$是$A$的所有包含$\mathfrak{a}$的真理想的集合.
+    那么$\mathfrak{a}\in\mathscr{I}$, $\mathscr{I}$非空.
+    对于$\mathscr{I}$中任意一条链
+    \[\mathfrak{a}_1\subset\mathfrak{a}_2\subset\cdots\]
+    考虑$\bigcup_{n\geq 1}\mathfrak{a}_n$, 容易验证它构成一个理想.
+    我们需要验证$\bigcup_{n\geq 1}\mathfrak{a}_n$是一个真理想, 否则$1\in\bigcup_{n\geq 1}\mathfrak{a}_n$, 那么对某个$\mathfrak{a}_i$有$1\in\mathfrak{a}_i$, 矛盾.
+    所以$\bigcup_{n\geq 1}\mathfrak{a}_n$是这条链的上界.
+    因此$\mathscr{I}$满足Zorn引理的条件, 其中存在极大元$\mathfrak{m}$.
+    断言$\mathfrak{m}$是极大理想:
+    如果$\mathfrak{b}$满足$\mathfrak{m}\subset\mathfrak{b}$, 那么$\mathfrak{b}\in\mathscr{I}$, 从而由$\mathfrak{m}$在$\mathscr{I}$中的极大性知$\mathfrak{b}=\mathfrak{m}$.
+    因此$\mathfrak{m}$是极大理想, 且包含$\mathfrak{a}$.
+\end{proof}
+
+\begin{col}
+    环$A$中存在极大理想.
+\end{col}
+
+\begin{rem}
+    我们强调我们处理的都是含幺交换环, 如果环不含幺元, 那么极大理想很有可能就不存在了, 见下面的例子.
+\end{rem}
+
+\begin{eg}
+    考虑在$\mathbb{Q}$上赋予平凡乘法, 即对任意$a,b\in\mathbb{Q}$有$ab=0$.
+    那么此时$\mathbb{Q}$构成一个不含幺元的交换环.
+    假设$\mathbb{Q}$有一个极大理想$\mathfrak{a}$, 那么由对应定理, $\mathbb{Q}/\mathfrak{a}$没有非平凡理想.
+    因此$\mathbb{Q}/\mathfrak{a}$没有非平凡子群, 从而是单群, 但单的Abel群只有素数阶循环群, 不妨设$\mathbb{Q}/\mathfrak{a}\simeq\mathbb{Z}/p\mathbb{Z}$.
+    取$a\notin\mathfrak{a}$, $a=pb$, 由Lagrange定理可知$p(b+\mathfrak{a})=\mathfrak{a}$, 这与$a\notin\mathfrak{a}$矛盾.
+    所以$\mathfrak{a}$不是极大理想.
+\end{eg}
+
+\subsection{整环与域}
+
+\begin{defn}
+    (不一定交换的) 环$R$的\textbf{零因子}定义为满足存在元素与其相乘为$0$的元素.
+\end{defn}
+
+\begin{defn}
+    \textbf{整环}是含幺交换无零因子的环.
+\end{defn}
+
+通过整环可以构造出一个域.
+类似通过$\mathbb{Z}$构造$\mathbb{Q}$的方法, 我们定义整环的\textit{商域}如下.
+\begin{defn}
+    设$A$是整环, 在$A\times A$上定义等价关系
+    \[(r_1,s_1)\sim(r_2,s_2):\iff r_1s_2=r_2s_1\]
+    将等价类记为$[r/s]$, 那么$A\times A/\sim$构成一个域, 称为$A$的\textbf{商域}, 并记为$\Quot{A}$.
+    $A$可以看作$\Quot{A}$的一个子环, 同构映射由$a\mapsto [a/1]$给出.
+\end{defn}
+
+\begin{ex}
+    证明一个域的商域是其自身.
+\end{ex}
+
+整环与素理想之间可以通过商环建立起联系.
+\begin{prop}
+    设$\mathfrak{p}$是环$A$的理想, 那么$\mathfrak{p}$是素理想当且仅当$A/\mathfrak{p}$是整环.
+\end{prop}
+\begin{proof}
+    假设$A/\mathfrak{p}$是整环, 那么$ab\in\mathfrak{p}$推出$ab+\mathfrak{p}$, 而$ab+\mathfrak{p}=(a+\mathfrak{p})(b+\mathfrak{p})$, 且对满足$(a+\mathfrak{p})(b+\mathfrak{p})=\mathfrak{p}$的$a,b$一定有$a+\mathfrak{p}=\mathfrak{p}$或$b+\mathfrak{p}=\mathfrak{p}$, 即$a\in\mathfrak{p}$或$b\in\mathfrak{p}$.
+    反过来如果$\mathfrak{p}$是素理想, 那么$ab+\mathfrak{p}=\mathfrak{p}$推出$ab\in\mathfrak{p}$, 就有$a\in\mathfrak{p}$或$b\in\mathfrak{p}$, 从而得到$a+\mathfrak{p}=\mathfrak{p}$或$b+\mathfrak{p}=\mathfrak{p}$.
+\end{proof}
+
+\begin{prop}\label{maximal ideal and field}
+    设$\mathfrak{m}$是环$A$的理想, 那么$\mathfrak{m}$是极大理想当且仅当$A/\mathfrak{m}$是域.
+\end{prop}
+
+\begin{lem}
+    一个整环是域当且仅当其只有平凡理想.
+\end{lem}
+\begin{proof}
+    设$k$是整环.
+    如果$k$是域, 那么$k$的理想$\mathfrak{a}$要么是零理想, 要么存在非零元$a\in\mathfrak{a}$, 那么$1=a^{-1}a\in\mathfrak{a}$, 从而$\mathfrak{a}=k$.
+    如果$k$只有平凡理想, 那么对任意$a\neq 0$有$\langle a\rangle=k$, 从而$1\in\langle a\rangle$, 即$a$可逆.
+\end{proof}
+
+\begin{proof}[命题~\ref{maximal ideal and field}~的证明]
+    假设$\mathfrak{m}$是极大理想, 那么由对应定理, $A/\mathfrak{m}$只有平凡理想, 从而由引理知$A/\mathfrak{m}$是域.
+    反过来, 如果$A/\mathfrak{m}$是域, 那么$A/\mathfrak{m}$只有平凡理想, 从而由对应定理, $A$中不存在更大的理想包含$\mathfrak{m}$, 即$\mathfrak{m}$是极大理想.
+\end{proof}
+
+\begin{col}\label{maximal implies prime}
+    极大理想都是素理想.
+\end{col}
+\begin{proof}
+    域都是整环.
+\end{proof}
+
+\section{三种特殊的整环}
+
+\subsection{唯一分解整环}
+
+我们在本小节将推广$\mathbb{Z}$上的唯一分解性, 得到一类具有唯一分解性的整环.
+为此, 我们将给出更广泛的整除与唯一分解的定义.
+
+\begin{defn}设$A$是整环.
+    \begin{enumerate}[(1)]
+        \item 设$u\in A$满足存在$v\in A$使得$uv=1$, 那么称$u$是一个\textbf{单位}.
+        \item 设$f,g\in A$满足存在$h\in A$使得$f=gh$, 那么称$g$\textbf{整除}$f$, 并记$g|f$. 此时称$g$是$f$的\textbf{因子}, $f$是$g$的\textbf{倍元}.
+        \item 如果$f|g$且$g|f$, 那么称$f$和$g$\textbf{相伴}, 此时存在单位$u$使得$f=ug$.
+    \end{enumerate}
+\end{defn}
+
+\begin{defn}
+    设$A$是整环.
+    \begin{enumerate}[(1)]
+        \item 如果$f\in A$满足$f=gh$且$g,h$都不是单位, 那么称$f$是\textbf{可约的}, 否则称$f$是\textbf{不可约的}.
+        \item 设$f\in A$, 称$f$可以分解为不可约元的乘积, 如果$f=f_1f_2\cdots f_n$, 其中$f_i$都是不可约元.
+        \item 设$f\in A$, 称$f$唯一分解为不可约元的乘积, 如果对两个分解
+        \[f=f_1f_2\cdots f_l=g_1g_2\cdots g_m\]
+        有$l=m$, 且适当调整顺序之后有$f_i$与$g_i$相伴.
+    \end{enumerate}
+\end{defn}
+
+\begin{defn}
+    整环$A$称为是\textbf{唯一分解整环 (UFD)}, 如果$A$中的任意非零且非单位的元素都可以唯一分解为不可约元的乘积.
+\end{defn}
+
+在整数中, 素数具有性质$p|ab\implies p|a$或$p|b$, 依此我们可以类似地在整环上定义\textit{素元}的概念.
+
+\begin{defn}
+    设$A$是整环, 如果$p\in A$满足对任意$a,b\in A$有$p|ab\implies p|a$或$p|b$, 则称$p$是\textbf{素元}.
+\end{defn}
+
+\begin{lem}\label{prime implies irreducible}
+    整环上的素元都是不可约元.
+\end{lem}
+\begin{proof}
+    假设$p=ab$且$a,b$都不是单位, 那么$p|ab$, 得出$p|a$或$p|b$, 不妨设前者成立, 那么$a|p$且$p|a$, 可知$p,a$相伴, 从而$b$是单位, 矛盾.
+    所以$p$不可约.
+\end{proof}
+
+\begin{prop}\label{UFD}
+    设$A$是整环, 那么$A$是唯一分解整环的充分必要条件是
+    \begin{enumerate}[(1)]
+        \item $A$中的每个非零, 非单位的元素都可以分解为不可约元的乘积;
+        \item $A$中每个不可约元都是素元.
+    \end{enumerate}
+\end{prop}
+\begin{proof}
+    必要性: 设$p|ab$, 进一步设$ab=pr$, 那么作不可约元的分解有
+    \[a_1\cdots a_lb_1\cdots b_m=pr_1\cdots r_n\]
+    由分解的唯一性, $p$必然与某个$a_i$或者$b_i$相伴, 即$p|a$或$p|b$.
+    因此$p$是素元.\\
+    充分性: 设$f\in A$有分解
+    \[f_1f_2\cdots f_l=g_1g_2\cdots g_m\]
+    我们对$\max\{l,m\}$用归纳法.
+    $\max\{l,m\}=1$时有$f_1=g_1$, 无需证明.
+    假设$\max\{l,m\}=n$, 不妨设$m=n$, 那么有
+    \[f_1|g_1g_2\cdots g_n\]
+    由于$f_1$是素元, 一定存在某个$g_i$使得$f_1|g_i$, 而$g_i$是不可约元, 所以$f_1$与$g_i$相伴.
+    那么设$f_1=ug_i$, 在分解中约去$f_1$与$g_i$后得到
+    \[f_2\cdots f_l=ug_1\cdots\widehat{g_i}\cdots g_m\]
+    此时两侧不可约元个数最大值为$n-1$, 由归纳假设有$l-1=m-1$, 即$l=m$, 且调整顺序后不可约元对应相伴.
+    因此$A$是唯一分解整环.
+\end{proof}
+
+在唯一分解整环中, 可以定义两个元素的最大公因子和最小公倍式.
+\begin{defn}设$A$是唯一分解整环, $a_1,\cdots,a_n\in A$.
+    \begin{enumerate}[(1)]
+        \item $a_1,\cdots,a_n$的\textbf{最大公因子}定义为满足$d|a_i(i=1,\cdots,n)$, 且对任意$d'|a_i(i=1,\cdots,n)$的$d'$有$d'|d$的$d\in A$, 记为$(a_1,\cdots,a_n)$.
+        \item $a_1,\cdots,a_n$的\textbf{最小公倍式}定义为满足$a_i|l(i=1,\cdots,n)$, 且对任意$a_i|l'(i=1,\cdots,n)$的$l'$有$l|l'$的$d\in A$, 记为$[a_1,\cdots,a_n]$.
+    \end{enumerate}
+\end{defn}
+
+最大公因子和最小公倍式一般来说不唯一, 会相差一个单位.
+例如在$\mathbb{Z}$中, $(4,6)$既可以是$2$也可以是$-2$.
+
+\begin{ex}
+    证明唯一分解整环$A$中最大公因子和最小公倍式存在, 并且存在单位$u\in A$使得$a_1\cdots a_n=u(a_1,\cdots,a_n)[a_1,\cdots,a_n]$.
+\end{ex}
+
+\subsection{主理想整环}
+
+\begin{defn}
+    由一个元素生成的理想称为\textbf{主理想}.
+    如果整环$A$的每个理想都是主理想, 那么称$A$为\textbf{主理想整环 (PID)}.
+\end{defn}
+
+我们希望证明主理想整环是唯一分解整环.
+为此, 我们需要建立主理想整环的一些性质:
+
+\begin{prop}\label{PID 1}
+    在主理想整环$A$中, $p\in A\backslash\{0\}$, 那么下列命题等价:
+    \begin{enumerate}[\rm (1)]
+        \item $p$是不可约元;
+        \item $\langle p\rangle$是极大理想;
+        \item $\langle p\rangle$是素理想;
+        \item $p$是素元.
+    \end{enumerate}
+\end{prop}
+\begin{proof}
+    $(1)\implies(2)$: 假设$\langle p\rangle\subset\mathfrak{a}\neq A$, 那么由于$A$是主理想整环, $\mathfrak{a}=\langle a\rangle$, 从而$a|p$.
+    而$p$是不可约元, 这说明$a$是单位或$a=p$, 即$\mathfrak{a}=\langle p\rangle$, 从而$\langle p\rangle$是极大理想.\\
+    $(2)\implies(3)$: 这是推论~\ref{maximal implies prime}.\\
+    $(3)\implies(4)$: 设$p|ab$, 那么$ab\in\langle p\rangle$, 从而有$a\in\langle p\rangle$或$b\in\langle p\rangle$, 即$p|a$或$p|b$.\\
+    $(4)\implies(1)$: 这是引理~\ref{prime implies irreducible}.
+\end{proof}
+
+\begin{prop}\label{PID 2}
+    主理想整环$A$的主理想满足升链条件, 即对主理想的升链
+    \begin{equation}
+        \langle a_1\rangle\subset\langle a_2\rangle\subset\cdots\label{chain of principle ideal}
+    \end{equation}
+    存在$n\in\mathbb{N}$使得$\langle a_n\rangle=\langle a_{n+1}\rangle=\cdots$.
+\end{prop}
+\begin{proof}
+    在~\eqref{chain of principle ideal}~中取$\mathfrak{a}=\bigcup_{i\geq 1}\langle a_i\rangle$, 那么我们熟悉这一定是一个理想.
+    由于$A$是主理想整环, 那么存在$a\in\mathfrak{a}$使得$\mathfrak{a}=\langle a\rangle$.
+    由于$a\in\bigcup_{i\geq 1}\langle a_i\rangle$, 设$a\in\langle a_n\rangle$, 那么
+    \[\langle a\rangle\subset\langle a_n\rangle\subset\langle a_{n+1}\rangle\subset\cdots\subset\langle a\rangle\]
+    从而就有$\langle a_n\rangle=\langle a_{n+1}\rangle=\cdots$.
+\end{proof}
+
+\begin{prop}
+    主理想整环是唯一分解整环.
+\end{prop}
+\begin{proof}
+    设$A$是主理想整环, 我们证明$A$中非零非单位的元素都能分解为不可约元的乘积.
+    否则设存在一个$a$不可以分解为不可约元的乘积, 设$a=a_1b_1$, 其中$a_1$不是不可约元, 不妨设其也不能分解为不可约元的乘积.
+    又设$a_1=a_2b_2$, $a_2$不可以分解为不可约元的乘积.
+    如此归纳定义得到序列$a_1,a_2,\cdots$, 每一项中后者都整除前者且不与前者相伴, 因此我们得到严格递增的主理想链
+    \[\langle a_1\rangle\subsetneqq\langle a_2\rangle\subsetneqq\cdots\]
+    这与命题~\ref{PID 2}~矛盾.
+    所以$A$中的元素都可以分解为不可约元的乘积.
+    而由命题~\ref{PID 1}, $A$中的不可约元都是素元, 那么由命题~\ref{UFD}, 可知$A$是唯一分解整环.
+\end{proof}
+
+反过来一般是不成立的.
+例如可以证明$\mathbb{Z}[x]$是唯一分解整环 (\parencite[p.\ 182定理2.3]{Lang}), 但是容易发现$\langle 2,x\rangle$不是主理想.
+
+\subsection{Euclid整环}
+
+在本小节我们推广$\mathbb{Z}$上的带余除法.
+
+\begin{defn}
+    设$A$是整环, 映射$\delta:A\backslash\{0\}\to\mathbb{N}$, 满足对任意$a,b\in A$, 存在$q,r\in A$使得
+    \[a=bq+r\]
+    且$r=0$或$\delta(r)<\delta(b)$, 则称$A$为\textbf{Euclid整环}, $\delta$为\textbf{Euclid映射}.
+\end{defn}
+
+我们熟知两种Euclid整环$\mathbb{Z}$与$k[x]$.
+当$A=\mathbb{Z}$时, Euclid映射就是恒等映射; 当$A=k[x]$时, Euclid映射是多项式的度数.
+
+我们证明本小节最主要的结论:
+\begin{prop}
+    Euclid整环是主理想整环.
+\end{prop}
+\begin{proof}
+    设$A$是Euclid整环, $\mathfrak{a}$是$A$的理想.
+    取集合$S=\{\delta(x)|\ x\in\mathfrak{a}\}$, 那么$S\subset\mathbb{N}$, 由最小数原理, 存在$a\in\mathfrak{a}$使得$\delta(a)=\min{S}$.
+    断言$\mathfrak{a}=\langle a\rangle$.
+    设$b\in\mathfrak{a}$, 那么存在$q,r\in A$使得$b=aq+r$.
+    如果$r\neq 0$, 那么$r=b-aq\in\mathfrak{a}$, 且$\delta(r)<\delta(a)$, 与$\delta(a)=\min{S}$矛盾.
+    所以$r=0$, 即$b=aq$, $b\in\langle a\rangle$.
+    从而有$\mathfrak{a}=\langle a\rangle$, 即$A$的任意理想是主理想.
+\end{proof}
+
+本小节与前一小节证明了如下的包含关系:
+\begin{center}
+    Euclid整环$\subsetneqq$主理想整环$\subsetneqq$唯一分解整环
+\end{center}
+而证明这两个包含关系是严格的则超出了本讲义的范围.
+
+\section*{例题与习题}
+
+\begin{eg}
+    我们证明交换环$A$的诣零根满足
+    \begin{equation}
+        \sqrt{\{0\}}=\bigcap_{\mathfrak{p}\in\Spec{A}}\mathfrak{p}\label{nilradical}
+    \end{equation}
+    一方面, 容易验证素理想都是根式理想, 所以$\sqrt{\{0\}}\subset\sqrt{\mathfrak{p}}=\mathfrak{p},\forall\mathfrak{p}\in\Spec{A}$, 即
+    \[\sqrt{\{0\}}\subset\bigcap_{\mathfrak{p}\in\Spec{A}}\mathfrak{p}\]
+    另一方面, 如果$a\in A\backslash\sqrt{\{0\}}$, 那么$S:=\{1,a,a^2,\cdots\}$是一个乘闭子集, 从而$A\backslash S\in\Spec{A}$, $a\notin\bigcap_{\mathfrak{p}\in\Spec{A}}\mathfrak{p}$, 因此
+    \[A\left\backslash\sqrt{\{0\}}\right.\subset A\left\backslash\bigcap_{\mathfrak{p}\in\Spec{A}}\mathfrak{p}\right.\]
+    因此有~\eqref{nilradical}~成立.
+\end{eg}
+
+\begin{eg}
+    我们在本例中证明\textit{素理想躲避引理}.
+    设$A$是交换环, $\mathfrak{p}_1,\cdots,\mathfrak{p}_n$是素理想, 理想$\mathfrak{a}$满足
+    \[\mathfrak{a}\subset\bigcup_{i=1}^n\mathfrak{p}_i\]
+    那么存在$i\in\{1,\cdots,n\}$使得$\mathfrak{a}\subset\mathfrak{p}_i$.
+
+    事实上, 对$n$用归纳法.
+    $n=1$时命题显然成立.
+    对$n>1$, 考虑集合$A_i:=\mathfrak{a}\left\backslash\bigcup_{j\neq i}\mathfrak{p}_j\right.$.
+    如果某个$A_i=\varnothing$, 那么$\mathfrak{a}\subset\bigcup_{j\neq i}\mathfrak{p}_j$, 由归纳假设知命题成立.
+    现假设每个$A_i$均非空, 反设命题不成立, 那么取$x_i\in A_i$, 易知$x_i\in\mathfrak{p}_i$.
+    考虑$x_1\cdots x_{n-1}+x_n\in\mathfrak{a}$, 当$1\leq i\leq n-1$时,
+    \[x_1\cdots x_{n-1}+x_n\in\mathfrak{p}_i\implies x_n\in\mathfrak{p}_i\]
+    矛盾; 当$i=n$时,
+    \[x_1\cdots x_{n-1}+x_n\in\mathfrak{p}_n\implies\exists x_j\in\mathfrak{p}_n\]
+    仍然矛盾.
+    因此由归纳法可知命题成立.
+\end{eg}
+
+\begin{eg}
+    设$A$是整环, 我们证明$A[x]$是主理想整环当且仅当$A$是域.
+    熟知$A$是域时$A[x]$是主理想整环.
+    反过来, 假设$A[x]$是主理想整环, 对$a\in A\backslash\{0\}$, 考虑理想$\langle a,x\rangle$.
+    由于$A[x]$是主理想整环, 设$\langle a,x\rangle=\langle b\rangle$.
+    那么$b|a$, 考虑度数可知$b\in A$.
+    而$b|x$, 设$b(cx+d)=x$, 比较系数可知$bc=1$, 即$b$可逆.
+    所以$\langle a,x\rangle=A[x]$, 那么存在$f(x),g(x)\in A[x]$使得
+    \[af(x)+xg(x)=1\]
+    令$x=0$有$af(0)=1$, 即$a$可逆, 从而$A$是一个域.
+\end{eg}
+
+\begin{eg}
+    我们证明$\mathbb{Z}[i]/\langle 1+i\rangle\simeq\mathbb{F}_2$.
+    而这只需要观察如下图表:
+    \[\begin{tikzcd}
+        \mathbb{Z}[x]\ar[r, "x^2+1"]\ar[d, "x+1"] & \mathbb{Z}[i]\ar[d, "i+1"]\\
+        \mathbb{Z}\ar[r, "2"] & \mathbb{F}_2
+    \end{tikzcd}\]
+\end{eg}
+
+\begin{ex}
+    设$A$是交换环, 如果$e\in A$满足$e^2=e$, 则称$e$是幂等元.
+    \begin{enumerate}[(1)]
+        \item 如果$e$是幂等元, 证明$1-e$也是幂等元.
+        \item 证明$A\simeq\langle e\rangle\oplus\langle 1-e\rangle$.
+    \end{enumerate}
+\end{ex}
+
+\begin{ex}
+    一个交换环称为\textbf{局部环}, 如果它有唯一的极大理想.
+    证明一个交换环是局部环当且仅当它的所有不可逆元构成一个理想.
+\end{ex}
+
+\begin{ex}
+    交换环$A$上的\textbf{形式幂级数环}$A[[x]]$是所有形如
+    \[\sum_{n=0}^\infty a_nx^n\]
+    的元素构成的环, 其中加法与乘法与多项式的定义类似.
+    \begin{enumerate}[(1)]
+        \item 证明$a_0+a_1x+a_2x^2+\cdots$可逆当且仅当$a_0$是单位.
+        \item 设$k$是域, 证明$k[[x]]$是局部环.
+    \end{enumerate}
+\end{ex}
+
+\begin{ex}
+    \begin{enumerate}[(1)]
+        \item 证明$\mathbb{Z}[\sqrt{-5}]$不是唯一分解整环.
+        \item 证明$\mathbb{Z}[\sqrt{-1}],\mathbb{Z}[\sqrt{-2}]$是唯一分解整环.
+        \par [提示: 考虑$\mathbb{Z}[\sqrt{-1}]$的\textbf{模}$|a+b\sqrt{-1}|^2=a^2+b^2$, $\mathbb{Z}[\sqrt{-2}]$的模类似定义.]
+    \end{enumerate}
+\end{ex}

@@ -1,0 +1,300 @@
+\chapter{群的更多性质}
+我们在本章讨论群的更多的性质.
+我们关心群的作用, 以及有限群的分类.
+在此之中我们遇到的最重要的定理将会是三条Sylow定理.
+
+\section{群作用}
+
+我们在接下来几节中关注群作用和群作用的一些应用.
+首先给出群作用的定义
+\begin{defn}
+    群$G$在一个集合$S$上的\textbf{作用}是$G$到$S$的置换群的一个同态$G\to\Aut_{\mathsf{Set}}(S)$\footnote{这个记号表示$S$的排列, 与一个群的自同构群区分.}.
+    当同态是单态射时, 称作用是\textbf{忠实}的.
+\end{defn}
+
+群作用的等价定义是
+\begin{defn}
+    群$G$在集合$S$上的一个作用是为每个$g\in G$赋予一个映射$\varphi_g:S\to S$, 满足
+    \begin{enumerate}[(1)]
+        \item $\varphi_g\circ\varphi_h=\varphi_{gh}$;
+        \item $\varphi_e=\mathrm{id}_S$.
+    \end{enumerate}
+\end{defn}
+
+\begin{sym}
+    为简单起见, 在不会引起混淆时一般将$\varphi_g(a)$记作$ga$.
+\end{sym}
+
+最简单的群作用是群在自身的作用, 这样的作用有两种.
+\begin{defn}
+    群$G$中的元素$a$在$G$自身的一个\textbf{左平移}为$g\mapsto ag$;
+    $a$在$G$自身的一个\textbf{内自同构}或\textbf{共轭作用}为$g\mapsto aga^{-1}$.
+\end{defn}
+
+\begin{ex}
+    验证左平移和内自同构都是群作用.
+\end{ex}
+
+通过群作用, 我们可以得到如下一条基本的定理
+\begin{thm}[Cayley]
+    任意有限群都同构于某个置换群的子群.
+\end{thm}
+\begin{proof}
+    考虑$G$的左平移.
+    对$a,b\in G$, $ag=bg$可以推出$a=b$, 所以不同的元素给出不同的变换.
+    因此$G$是忠实的, 从而$G$同构于$\Aut_{\mathsf{Set}}(G)$的某个子群.
+    将$G$的元素一一对应于$\{1,\cdots,n\}$ ($n$为$G$的阶), 那么$\Aut_{\mathsf{Set}}(G)\simeq S_n$, 可以得到$G$同构于$S_n$的子群.
+\end{proof}
+
+\begin{defn}
+    设群$G$作用在$S$上, 定义$S$上的等价关系$\sim$为$a\sim b$当且仅当存在$g\in G$使得$ga=b$.
+    定义该群作用的\textbf{轨道}为$\sim$的等价类.
+    如果$S$上仅有一条轨道, 那么称群作用是\textbf{可迁}的.
+\end{defn}
+
+\begin{defn}
+    设群$G$作用在$S$上, $s\in S$.
+    定义$s$的\textbf{稳定化子}为$G_s:=\{g\in G|\ gs=s\}$.
+\end{defn}
+
+\begin{lem}
+    设群$G$作用在$S$上, $s\in S$.
+    如果$t=gs$, 那么$G_t=gG_sg^{-1}$.
+\end{lem}
+\begin{proof}
+    平凡计算.
+\end{proof}
+
+\begin{prop}[计数公式]
+    设有限群$G$作用在有限集合$S$上, $s\in S$.
+    用$O_s$记$s$所在的轨道, 那么有$|O_s||G_s|=|G|$.
+\end{prop}
+\begin{proof}
+    轻微滥用记号, 用$G/G_s$表示$G_s$所有左陪集的集合.
+    定义映射
+    \begin{align*}
+        \varphi:O_s&\to G/G_s\\
+        t=gs&\mapsto gG_s
+    \end{align*}
+    我们验证上述映射是良定义的: 如果另有$t=g's$, 那么$g's=gs\implies g^{-1}g'\in G_s$, 即$gG_s=g'G_s$.
+    显然$\varphi$是满射.
+    如果$gG_s=g'G_s$, 那么可以得出$g^{-1}g'\in G_s$, 从而$gs=g's$, 即$\varphi$是单射.
+    因此$|O_s||G_s|=|G/G_s||G_s|=|G|$.
+\end{proof}
+
+我们给出共轭作用的一些应用.
+共轭作用的轨道也称为\textbf{共轭类}, 在有限群中, 将所有共轭类的元素个数相加可以得到群的阶数, 这样我们就得到了
+\begin{prop}
+    有限群$G$的{\bf 类方程}为
+    \[|G|=\sum_{O\text{是共轭类}}|O|\]
+    特别地, 单位元的共轭类$|O_e|=1$, 从而方程也能写成
+    \[|G|=1+\sum_{O\text{是}e\text{以外的共轭类}}|O|\]
+\end{prop}
+
+\begin{defn}
+    有限群$G$称为{\bf $p$--群}, 如果$G$的阶数是$p$的方幂.
+\end{defn}
+
+我们通过类方程给出一些简单的$p$--群的结构.
+回忆我们在习题~\ref{center}~中定义了群的中心, 它包含了与群中所有元素交换的元素.
+\begin{prop}\label{center of p group}
+    $p$--群的中心至少有$p$个元素.
+\end{prop}
+\begin{proof}
+    设$G$是$p$--群.
+    注意到中心$Z(G)$中的元素的共轭类仅包含本身, 所以类方程写作
+    \begin{equation}
+        |G|=\sum_{x\in Z(G)}1+\sum_{O\text{是}G\backslash Z(G)\text{中元素的共轭类}}|O|\label{class equation for p group}
+    \end{equation}
+    注意到$Z(G)$之外的元素轨道长度一定大于$1$, 而由计数公式, 轨道长度一定整除$|G|=p^n$, 所以长度一定是$p$的倍数.
+    因此$\sum_{O\text{是}G\backslash Z(G)\text{中元素的共轭类}}|O|$被$p$整除.
+    而~\eqref{class equation for p group}~左端为$p^n$, 所以$\sum_{x\in Z(G)}1$被$p$整除, 且至少是$p$, 即$|Z(G)|\geq p$.
+\end{proof}
+
+对于$p^2$阶群, 还有更强的结论
+\begin{prop}
+    $p^2$阶群是Abel群.
+\end{prop}
+\begin{proof}
+    设群$G$满足$|G|=p^2$.
+    由命题~\ref{center of p group}, $|Z(G)|\geq p$, 从而$|Z(G)|=p$或$|Z(G)|=p^2$.
+    对于后一种情况, 命题得证.
+    对于前一种情况, 我们考虑一个$x\notin Z(G)$, 取$Z_x=\{y\in G|\ xy=yx\}$\footnote{这个群叫做中心化子.}, 容易验证$Z_x$是$G$的一个子群.
+    又因为$x\notin Z(G)$, 所以$Z_x$真包含$Z(G)$, 从而$|Z_x|=p^2$.
+    而这说明$x$与$G$中所有元素交换, 有$x\in Z(G)$, 矛盾.
+    因此$G$是Abel群.
+\end{proof}
+
+\begin{ex}
+    证明$p^2$阶群是循环群或者是两个$p$阶群的直积.
+\end{ex}
+
+\section{单群}
+
+\begin{defn}
+    如果群$G$没有非平凡的正规子群, 那么称$G$为\textbf{单群}.
+\end{defn}
+
+比较简单的情况是Abel群的情况.
+\begin{prop}
+    Abel群$G$是单群当且仅当$G$是素数阶循环群.
+\end{prop}
+\begin{proof}
+    注意到Abel群的任意子群都是正规的, 所以$G$是单群等价于$G$没有非平凡子群.
+    由Lagrange定理, $G$是素数阶循环群时$G$没有非平凡子群.
+    反过来, $\mathbb{Z}$不是单群;
+    如果$G$不是循环群, 那么存在$g\in G\backslash\{e\}$使得$\langle g\rangle\subsetneqq G$;
+    如果$G$是循环群而不是素数阶的, 设$|G|=mn$, $G=\langle g\rangle$, 那么$\langle g^m\rangle\subsetneqq G$.
+    综上可知命题成立.
+\end{proof}
+
+而对一般的有限群来说, 另一个常见的结论是
+\begin{thm}\label{A_n simple}
+    设$n\geq 5$, 那么交错群$A_n$是单群.
+\end{thm}
+
+我们首先需要两个引理.
+\begin{lem}
+    $A_n$由$3$--循环生成.
+\end{lem}
+\begin{proof}
+    $A_n$中的元素都可以写成偶数个$2$--循环的乘积.
+    而对两个$2$--循环$(ij),(rs)$有$(ij)(rs)=(ijr)(jrs)$, 所以$3$--循环生成了$A_n$.
+\end{proof}
+
+\begin{lem}
+    $n\geq 5$时$A_n$中的$3$--循环两两共轭.
+\end{lem}
+\begin{proof}
+    设$(ijk),(i'j'k')$是两个$3$--循环, 那么存在一个置换$\sigma$使得$\sigma(i)=i',\sigma(j)=j',\sigma(k)=k'$.
+    如果$\sigma$是偶置换, 那么就有$\sigma(ijk)\sigma^{-1}=(i'j'k')$, 从而$(ijk),(i'j'k')$共轭.
+    如果$\sigma$是奇置换, 由于$n\geq 5$, 存在与$i,j,k$不同的$r,s$, 那么用$\sigma\cdot(rs)$代替$\sigma$, 仍然得到$(ijk),(i'j'k')$共轭.
+\end{proof}
+
+\begin{proof}[定理~\ref{A_n simple}~的证明]
+    由前面的两个引理, 我们只需要证明$A_n$的任意非平凡正规子群$N$均包含一个$3$--循环即可.
+
+    设$\sigma$是$\mathrm{id}$之外不动点最多的置换.
+    考虑$\langle\sigma\rangle$作用下的轨道, 那么存在轨道其中含有超过一个元素.
+    假设除了一个元素构成的轨道外, 所有轨道都只有两个元素.
+    由于$\sigma$是偶置换, 所以至少有两个这样的轨道, 那么$\sigma=(ij)(rs)\cdots$.
+    设$k\neq i,j,r,s$, $\tau=(krs)$, 取$\sigma'=\tau\sigma\tau^{-1}\sigma^{-1}$.
+    那么简单计算可以得到$\sigma'(i)=i,\sigma'(j)=j$, 并且对$t\neq i,j,k,r,s$, 如果$t$被$\sigma$固定, 那么也被$\sigma'$固定.
+    因此$\sigma'$有更多的不动点, 矛盾.
+
+    由上述论证, $\langle\sigma\rangle$的轨道中至少存在一个有至少$3$个元素, 设轨道为$O=\{i,j,k,\cdots\}$.
+    如果$\sigma$不是$3$--循环, 那么$O$中至少还有两个元素, 否则$\sigma$中包含$(ijkr)$, 是一个奇置换.
+    因此$\sigma$移动$i,j,k$以外的$r,s$, 同理地取$\tau=(krs)$及$\sigma'=\tau\sigma\tau^{-1}\sigma^{-1}$, 那么$\sigma'$固定$i,j$且固定$i,j,k,r,s$以外的其他不动点, 仍然矛盾.
+    综合以上两点, 可以知道$\sigma$是一个$3$--循环.
+\end{proof}
+
+\begin{ex}
+    证明$A_4$不是单群.
+\end{ex}
+
+\section{Sylow定理}
+
+有限群理论中一个重要的工具是我们即将陈述的三个Sylow定理.
+本节中的群均默认是有限群.
+\begin{defn}
+    设素数$p$整除群$G$的阶, 那么群$G$的一个\textbf{Sylow $p$--子群}是一个$p^n$阶子群, 其中$n$是$p$整除$|G|$的最高次幂.
+\end{defn}
+
+\begin{thm}[Sylow第一定理]
+    设素数$p$整除群$G$的阶, 那么群$G$中存在Sylow $p$--子群.
+\end{thm}
+
+\begin{thm}[Sylow第二定理]
+    设$H$是$G$的$p$--子群, $P$是$G$的Sylow $p$--子群, 那么存在$a\in G$使得$H\subset aPa^{-1}$.
+\end{thm}
+
+\begin{col}
+    Sylow $p$--子群两两共轭.
+\end{col}
+
+\begin{thm}[Sylow第三定理]
+    设$|G|=p^nm,(p,m)=1$, 那么$G$的Sylow $p$--子群的个数整除$m$, 且模$p$余$1$.
+\end{thm}
+
+Sylow定理的证明比较复杂, 我们将其留在附录中.
+读者也可以阅读~\parencite[pp.\ 33--36]{Lang}.
+Sylow定理的应用十分重要, 我们给出几个例子.
+
+\begin{eg}
+    第零个例子是关于如何分类低阶有限群的.
+    比如我们分类$4$阶群, 这用不到Sylow定理:
+    按照Lagrange定理, 群中元素的阶只能是$1,2,4$其一.
+    如果群中存在$4$阶元, 那么这个群是循环群.
+    不然群中除单位元外都是$2$阶元, 设群$G:=\{e,a,b,c\}$.
+    那么$\{e,a\}\lhd G,\{e,b\}\lhd G$, 并且有$ab=c$, 所以$G\simeq\{e,a\}\times\{e,b\}$.
+    因此$4$阶群同构于$C_4$或$C_2\times C_2$.
+\end{eg}
+
+\begin{eg}
+    我们证明$15$阶群是循环群.
+    设$|G|=15$, 考虑Sylow $3$--子群与Sylow $5$--子群.
+    由Sylow第三定理, Sylow $3$--子群的个数整除$5$, 且模$3$余$1$, 因此个数只能是$1$.
+    由Sylow第二定理, 这说明Sylow $3$--子群是正规的, 设为$H\lhd G$.
+    同理Sylow $5$--子群也是正规的, 设为$K\lhd G$.
+    而显然$H\cap K=\{e\}$, 所以$G\simeq H\times K$.
+    由于$H$, $K$是阶数互素的素数阶循环群, 所以$H\times K$是循环群 (请读者验证), 即$G$是循环群.
+\end{eg}
+
+\begin{eg}
+    我们证明$72$阶群不是单群.
+    首先有$72=2^3\times 3^2$.
+    设群$G$的阶为$72$.
+    由Sylow第一定理, $G$存在Sylow $3$--子群, 并且由Sylow第三定理, Sylow $3$--子群的个数整除$8$而模$3$余$1$, 从而为$1$或$4$.
+    如果Sylow $3$--子群恰好只有一个, 那么由Sylow第二定理可知它是正规的, 从而$G$有非平凡正规子群;
+    如果Sylow $3$--子群有四个, 那么由Sylow第二定理可知$G$的共轭作用是这四个子群上的一个可迁作用, 从而诱导了一个同态$\varphi:G\to S_4$.
+    由于$|S_4|=24$, 由对应定理可知$\ker\varphi$的阶至少为$3$, 而$\ker\varphi\lhd G$, 所以$G$有非平凡正规子群.
+    综上, $G$一定不是单群.
+\end{eg}
+
+\section{例题与习题}
+
+\begin{eg}
+    我们证明$2n$阶群有阶为$n$的正规子群.
+    由Cayley定理, 不妨设$G$是$S_{2n}$的$2n$阶子群.
+    如果$G$中存在一个奇置换, 那么$G$中奇置换与偶置换一定一样多 (请读者验证), 那么$A_{2n}\cap G$就是$G$的$n$阶正规子群.
+    因此我们只需要找一个奇置换.
+    注意到对任意$g\in G\backslash\{\mathrm{id}\}$, $g$没有不动点, 且若$g$的阶为$d$, 那么任意一个元素在$\langle g\rangle$作用下的轨道长为$d$.
+    因此$\langle g\rangle$的轨道是$2n/d$个$d$元集, 从而$g$的符号为$(-1)^{2n-2n/d}=(-1)^{2n/d}$.
+    而$G$中阶数超过$3$的元素一定有偶数个 (考虑对应$a\mapsto a^{-1}$), $G$中单位元是$1$阶的, 所以$G$中一定存在$2$阶元, 此时它的符号为$(-1)^n=-1$, 从而找到一个奇置换.
+\end{eg}
+
+\begin{eg}
+    我们将在本例中证明\textit{Burnside引理}.
+    设有限群$G$作用在有限集合$X$上, 记$S^g:=\{s\in X|\ gs=s\}$为$g$的不动点集, $X$在$G$的作用下有$n$条轨道, 那么Burnside引理断言
+    \[n=\frac{1}{|G|}\sum_{g\in G}|S^g|\]
+    证明用到了交换求和号的技巧.
+    我们有
+    \begin{align*}
+        \sum_{g\in G}|S^g|&=\sum_{g\in G}\sum_{s\in X,gs=s}1=\sum_{s\in X}\sum_{g\in G,gs=s}1\\
+        &=\sum_{s\in X}|G_s|=\sum_{s\in X}\frac{|G|}{|O_s|}\\
+        &=\sum_{O\text{是轨道}}\sum_{s\in O}\frac{|G|}{|O|}=\sum_{O\text{是轨道}}|G|\\
+        &=n|G|
+    \end{align*}
+\end{eg}
+
+\begin{eg}
+    我们证明$n\geq 5$时, $S_n$没有$n!/4$阶子群.
+    假设存在子群$G$使得$|G|=n!/4$.
+    如果$G$中不存在奇置换, 有$G\subset A_n$, 那么$G$的阶是$A_n$的一半, 从而$G\lhd A_n$, 与$A_n$的单性矛盾.
+    如果$G$中存在奇置换, 那么$G'=G\cap A_n$阶为$n!/8$.
+    考虑$A_n$在$G'$在$A_n$中的陪集类上的左平移作用: 陪集类中有$4$个元素, 从而这个作用给出一个同态$\varphi:A_n\to S_4$.
+    而$n\geq 5$时$|A_n|/|S_4|>1$, 由对应定理知$\ker\varphi$非平凡, 从而$\ker\varphi\lhd A_n$, 与$A_n$的单性矛盾.
+    因此$G$是不存在的.
+\end{eg}
+
+\begin{ex}
+    给定一个正整数$n$, 证明互不同构的$n$阶群只有有限个.
+\end{ex}
+
+\begin{ex}
+    设有限群$G$可迁地作用在有限集$X$上, $N\lhd G$, 证明$X$在$N$的作用下每个轨道有同样多的元素.
+\end{ex}
+
+\begin{ex}
+    分类$10$阶群.
+\end{ex}

@@ -1,0 +1,265 @@
+\chapter{域}\label{field}
+我们在本章及下一章讨论域这种更强的代数结构.
+
+\section{域扩张}
+
+\begin{defn}
+    设$K,L$是域, 满足$K\subset L$, 那么称$L$是$K$的一个\textbf{扩域}, 并记为$L/K$.
+\end{defn}
+
+我们首先引进两个记号
+\begin{sym}
+    设有域扩张$L/K$, $S\subset L$, 那么记$K(S)$为包含$S$的最小的域 (即所有包含$S$的域的交).
+    如果$S=\{a_1,\cdots,a_n\}$, 也记$K(S)=K(a_1,\cdots,a_n)$.
+\end{sym}
+
+对$L/K$, $L$自然构成了一个$K$--向量空间, 所以我们可以定义
+\begin{defn}
+    定义域扩张$L/K$的\textbf{度数}为$[L:K]:=\dim_K{L}\in\mathbb{N}\cup\{\infty\}$.
+\end{defn}
+
+我们定义几类扩张如下
+\begin{defn}
+    给定域扩张$L/K$.
+    \begin{enumerate}[(1)]
+        \item 如果$[L:K]<\infty$, 那么称$L/K$是\textbf{有限扩张}.
+        \item 设$a\in L$, 如果$\alpha$是$K[x]$中某个多项式的根, 那么称$\alpha$是$K$上的\textbf{代数元}, 否则称为\textbf{超越元}.
+        如果$\alpha$是代数元, 所有满足$f(\alpha)=0$的多项式中次数最低的称为$\alpha$的\textbf{极小多项式}.
+        \item 如果$L$中任意一个元素都是代数元, 那么称$L/K$是\textbf{代数扩张}, 否则称为\textbf{超越扩张}.
+    \end{enumerate}
+\end{defn}
+
+考虑由单个代数元$\alpha$生成的扩域, 我们有如下的引理
+\begin{lem}
+    设$L/K$, $\alpha\in L$是$K$上的代数元, 有极小多项式$m(x)\in K[x]$, 那么$K(\alpha)\simeq K[x]/\langle m(x)\rangle$, 其中$\langle m(x)\rangle$是$p(x)$生成的理想.
+\end{lem}
+\begin{proof}
+    定义同态
+    \begin{align*}
+        \varphi:K[x]&\to K(\alpha)\\
+        p(x)&\mapsto p(\alpha)
+    \end{align*}
+    考虑核$\ker\varphi$, 显然$\ker\varphi\neq K[x]$, 且极小多项式$m(x)\in\ker\varphi$.
+    由于$K[x]$是主理想整环, $\ker\varphi$单生成, 且生成元整除$m(x)$.
+    但容易证明$m(x)$是不可约多项式, 结合$\ker\varphi\neq K[x]$可知生成元与$m(x)$相伴, 从而$\ker\varphi=\langle m(x)\rangle$.
+    由第一同构定理即知
+    \[K(\alpha)\simeq \frac{K[x]}{\langle m(x)\rangle}\qedhere\]
+\end{proof}
+
+关于有限扩张与代数扩张, 有如下的结论
+\begin{prop}
+    设有域扩张$M/K$, $\alpha\in M$是$K$上的代数元当且仅当$\alpha$包含在$K$的一个有限扩张中.
+\end{prop}
+\begin{proof}
+    一方面, 假设$\alpha$是代数元.
+    设$\deg\alpha=n$, 那么$1,\alpha,\cdots,\alpha^{n-1}$是$K(\alpha)$的一组基, $K(\alpha)/K$是有限扩张.
+    另一方面, 假设$\alpha$包含在$K$的有限扩张中, 不妨设$[M:K]=n<\infty$.
+    那么$1,\alpha,\cdots,\alpha^{n-1},\alpha^n$一定线性相关, 从而$\alpha$是一个多项式的根, 是一个代数元.
+\end{proof}
+
+\begin{col}
+    任意有限扩张都是代数扩张.
+\end{col}
+
+\begin{thm}[望远镜公式]\label{telescope}
+    设$K\subset L\subset M$均为有限扩张, 那么有$[M:K]=[M:L][L:K]$
+\end{thm}
+\begin{proof}
+    设$x_1,\cdots,x_m$是$L/K$的一组基, $y_1,\cdots,y_n$是$M/L$的一组基.
+    我们考虑$\{x_iy_j\}_{(i,j)\subset [m]\times[n]}$\footnote{$[m]=\{1,\cdots,m\}$, 组合数学中的常用记号.}.
+    首先对$a_{ij}\in K$及指标$(i,j)\in R\times S\subset [m]\times[n]$有
+    \begin{align*}
+        &\sum_{(i,j)\in R\times S}a_{ij}(x_iy_j)=0\\
+        \implies&\sum_{j\in S}a_{ij}y_j=0,\ \forall i\in R\\
+        \implies&a_{ij}=0,\ \forall (i,j)\in R\times S
+    \end{align*}
+    所以$x_iy_j$线性无关.
+    其次, 显然$M$中的每个元素可以表示为$x_iy_j$的$K$--线性组合, 所以$\{x_iy_j\}_{(i,j)\subset [m]\times[n]}$是$M/L$的一组基.
+    从而命题得证.
+\end{proof}
+
+通过望远镜公式, 我们可以证明
+\begin{thm}
+    设$\alpha,\beta$是$K$上的代数元, 那么$\alpha\pm\beta,\alpha\beta,\alpha/\beta(\beta\neq 0)$均为$K$上的代数元.
+\end{thm}
+\begin{proof}
+    考虑扩张链$K\subset K(\alpha)\subset K(\alpha,\beta)$, 两个扩张均为代数扩张, 所以都是有限扩张.
+    由定理~\ref{telescope}, $K(\alpha,\beta)/K$是代数扩张.
+    而$\alpha\pm\beta,\alpha\beta,\alpha/\beta$均包含在$K(\alpha,\beta)$中, 所以都是代数元.
+\end{proof}
+
+\begin{thm}\label{algcoef}
+    设$\alpha$是一个由$K$上代数元系数构成的多项式的根, 那么$\alpha$是代数的.
+\end{thm}
+\begin{proof}
+    设
+    \[\alpha^n+a_{n-1}\alpha^{n-1}+\cdots+a_0=0\]
+    且$a_{n-1},\cdots,a_0$均为$K$上代数元.
+    考虑域扩张链
+    \begin{align*}
+        K&\subset K(a_0)\\
+        &\subset K(a_0,a_1)\\
+        &\cdots\\
+        &\subset K(a_0,\cdots,a_{n-1})\\
+        &\subset K(a_0,\cdots,a_{n-1},\alpha)
+    \end{align*}
+    前$n$步扩张每一步都是添加一个代数元$a_i$, 所以都是有限的, 因此$K$上的扩域$K(a_0,\cdots,a_{n-1})$是有限的.
+    而由假设, $\alpha$在$K(a_0,\cdots,a_{n-1})$上代数, 所以最后一步扩张也是有限的.
+    因此扩张$K(a_0,\cdots,a_{n-1},\alpha)/K$是有限的, 从而$\alpha$是$K$上代数元.
+\end{proof}
+
+\begin{col}\label{alg of alg}
+    假设$E/L,L/K$均为代数扩张, 那么$E/K$也是代数扩张.
+\end{col}
+
+\section{分裂域}
+
+对于一个代数方程, 我们总希望能够找到一个域使得它``有根''.
+而严格地描述这一点则需要定义\textit{分裂域}的概念.
+
+\begin{defn}
+    设$K$是域, $p(x)\in K[x]$, 如果扩域$L/K$使得$p(x)$在$L$上可以分解为一次因式的乘积 (简称为\textbf{分裂})
+    \[p(x)=(x-\alpha_1)\cdots(x-\alpha_n)\]
+    且$L=K(\alpha_1,\cdots,\alpha_n)$, 那么称$L$是$p(x)$在$K$上的\textbf{分裂域}.
+\end{defn}
+
+本节的关键是证明分裂域的存在性与同构唯一性.
+
+我们首先证明分裂域的存在性.
+\begin{proof}
+    给定域$K$及$p=p_1p_2\cdots p_m\in K[x]$, 其中$p_i\ (i=1,\cdots,m)$均不可约.
+    我们对$\deg{p}$用归纳法.
+    当$\deg{p}=1$时, $K$本身就是$p(x)$的分裂域.
+    假设对$\deg{p}=n-1$成立.
+    对$\deg{p}=n$, 考虑域$K_1=K[x]/\langle p_1(x)\rangle$, 那么$p$在$K_1$上至少有一个根$\alpha$, $p$在$K_1$上可以分解为
+    \[p(x)=(x-\alpha)p_a(x)\]
+    对$p_a(x)$用归纳假设, 存在扩域$L/K_1$使得$p_a(x)$分裂为一次因式的乘积, 从而在扩域$L/K$上$p(x)$分裂为一次因式的乘积.
+    由归纳原理得证.
+\end{proof}
+
+然后我们证明分裂域的同构唯一性.
+\begin{thm}[分裂域的同构唯一性]
+    设$K$是域, $p(x)\in K[x]$, 域$K'$与$K$同构, 且$p(x)$在同构映射下的像为$p'(x)$.
+    设$L,L'$分别是$p(x),p'(x)$的分裂域, 那么存在同构$L\to L'$使得以下图表交换
+    \[\begin{tikzcd}
+        L\ar[r, "\sim"] & L'\\
+        K\ar[r, "\sim"] \ar[u] & K' \ar[u]
+    \end{tikzcd}\]
+\end{thm}
+\begin{proof}
+    设$i:K\xrightarrow{\sim}K'$是同构, 我们也用$i$表示延拓到$K[x]\to K'[x]$的同构.
+    依然对$p(x)$的次数用归纳法.
+    $\deg{p}=1$时, $K=L,K'=L'$, 命题显然成立.
+    假设命题对$\deg{p}=n-1$成立, 那么对$p$的某个不可约因子$p_1$, 有
+    \[K(\alpha)=\frac{K[x]}{\langle p(x)\rangle}\simeq\frac{K'[x]}{\langle i(p(x))\rangle}=K(\alpha')\]
+    从而可以得到交换图
+    \[\begin{tikzcd}
+        K(\alpha)\ar[r,"\sim"] & K'(\alpha)\\
+        K\ar[u]\ar[r,"\sim"] & K'\ar[u]
+    \end{tikzcd}\]
+    而在$K(\alpha),K'(\alpha')$上$p(x),p'(x)$分别分解为一次因式与一个$n-1$次多项式的乘积, 从而按归纳假设, 可以得到两个$n-1$次多项式的分裂域的同构
+    \[\begin{tikzcd}
+        L\ar[r, "\sim"] & L'\\
+        K(\alpha)\ar[r, "\sim"] \ar[u] & K'(\alpha') \ar[u]
+    \end{tikzcd}\]
+    从而有大图表
+    \[\begin{tikzcd}
+        L\ar[r, "\sim"] & L'\\
+        K(\alpha)\ar[r, "\sim"] \ar[u] & K'(\alpha') \ar[u]\\
+        K\ar[r,"\sim"] \ar[u] & K'\ar[u]
+    \end{tikzcd}\]
+    交换, 即得到所欲证命题.
+\end{proof}
+
+\begin{rem}
+    需要注意到, 两个分裂域之间的同构不一定是唯一的.
+    例如分别使用$i,j$表示虚数单位, $x^2+1$在$\mathbb{R}$上的两个分裂域
+    \[\begin{tikzcd}
+        \mathbb{C}=\mathbb{R}(i)\ar[rr, "h"] & & \mathbb{R}(j)\\
+        & \mathbb{R}\ar[ul] \ar[ur] &
+    \end{tikzcd}\]
+    其中$h:\mathbb{R}(i)\to\mathbb{R}(j)$可以取为$i\mapsto j$与$i\mapsto -j$, 得到两个同构.
+    分裂域间不同的同构构成了多项式的\textbf{Galois群}, 它将在Galois理论中处于中心的位置.
+\end{rem}
+
+\section{有限域}
+
+我们在本节讨论元素个数有限的域, 也即\textbf{有限域}.
+
+假设$F$是有限域, 那么$F$一定有正的特征$p>0$.
+那么此时素域$\mathbb{F}_p\subset F$, $F$是$\mathbb{F}_p$上的向量空间.
+如果$\dim_{\mathbb{F}_p}F=n$, 那么每个坐标分量有$p$种取法, 则$|F|=p^n$.
+因此我们得到
+\begin{prop}
+    有限域$F$的阶为$p^n$, 其中$p=\ch{F}$是素数, $n=[F:\mathbb{F}_p]$.
+\end{prop}
+
+相同的论证我们可以得到
+\begin{prop}\label{finite subfield}
+    设$K,L$分别是$p^n,q^m$元域, 那么$K\subset L$当且仅当$p=q$且$n|m$.
+\end{prop}
+
+与分裂域一样, 我们也要讨论有限域的存在性与同构唯一性.
+
+首先我们证明有限域的存在性.
+\begin{thm}
+    对素数$p$及$q=p^n$, 存在$q$阶有限域.
+\end{thm}
+\begin{proof}
+    取$x^q-x$在$\mathbb{F}_p$上的一个分裂域$L$, 我们证明$L$恰好由$x^q-x$的所有根构成.
+    我们先证明$x^q-x$的根构成一个域.
+    对根$x,y$, 由$\ch L=p$可知$\binom{q}{k}=0,\ k=1,\cdots,q-1$, 从而
+    \begin{align*}
+        (x-y)^q&=x^q-y^q\quad(p=2\text{时}1=-1,\ \text{所以均写为减号})\\
+        &=x-y
+    \end{align*}
+    所以$x-y$是$x^q-x$的一个根;
+    而当$y\neq 0$时
+    \begin{align*}
+        \left(\frac{x}{y}\right)^q-\frac{x}{y}&=\frac{x^qy-xy^q}{y^{q+1}}\\
+        &=\frac{xy-yx}{y^{q+1}}\\
+        &=0
+    \end{align*}
+    所以$x/y$也是一个根.
+    因此$x^q-x$的根在减法与除法下封闭, 构成一个域.
+    由于分裂域由根生成, 所以$L$恰好由$x^q-x$的根构成.
+    另一方面, 由于$(x^q-x)'=qx^{q-1}-1=-1$, 与$x^q-x$互素, 所以$x^q-x$没有重根.
+    因此$|L|=\deg(x^q-x)=q$.
+\end{proof}
+
+然后我们证明有限域的唯一性.
+\begin{thm}
+    两个有限域同构当且仅当他们阶数相同.
+\end{thm}
+\begin{proof}
+    设有限域$F$的阶数为$q$, 我们证明$F$一定是$x^q-x$的分裂域.
+    这只需要证明对任意$a\in F$有$a^q=a$即可.
+    $a=0$时这是平凡的.
+    对$a\in F^*$, 由Lagrange定理, $a^{|F^*|}=1$, 即$a^{q-1}=1$, 从而$a^q=a$.
+    因此$F$是$x^q-x$的分裂域, 在同构意义下是唯一的.
+\end{proof}
+
+最后我们证明有限域最重要的结论之一
+\begin{thm}\label{single generate}
+    有限域的乘法群是循环群.
+\end{thm}
+
+我们首先需要一个引理
+\begin{lem}[多项式的Lagrange定理]
+    设$f(x)\in k[x]$, $\deg f(x)=d$, 那么$f(x)=0$在$k$中至多有$d$个根.
+\end{lem}
+\begin{proof}
+    对$d$用归纳法.
+    当$d=1$时命题是显然的.
+    假设命题对$d=n-1$成立, 那么此时$n$次多项式$f(x)$在$k$上要么没有根, 要么有一个根$\alpha$, 此时存在一个$n-1$次多项式$g(x)$使得$f(x)=(x-\alpha)g(x)$.
+    而由归纳假设, $g(x)$至多有$n-1$个根, 所以$f(x)=(x-\alpha)g(x)$至多有$n$个根.
+    由归纳原理知命题得证.
+\end{proof}
+
+\begin{proof}[定理~\ref{single generate}~的证明]
+    设$k$是一个$q$元域, 那么它的乘法群$k^*$阶为$q-1$.
+    设$m$是$k^*$中元素的最大值, 并设$\alpha$的阶为$m$.
+    那么对任意$\beta\in k^*$, 设其阶为$d$, 则$\alpha\beta$的阶为$[m,d]\leq m$, 从而$d|m$.
+    因此$\beta^m=1$, 方程$x^m-1$有至少$q-1$个根, 由多项式的Lagrange定理可知$m\geq q-1$.
+    而由群的Lagrange定理知$m|q-1$, 所以$m=q-1$, 即$\langle\alpha\rangle=k^*$.
+\end{proof}

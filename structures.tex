@@ -1,0 +1,571 @@
+\chapter{群与环的结构}\label{structures}
+\section{同态}
+代数学研究代数对象及它们之间的态射.
+这里的``态射''指的是保持代数运算结构的映射, 一般称为\textit{同态}.
+严格的定义如下:
+
+\begin{defn}
+    \begin{itemize}
+        \item 设$G,G'$是两个群, 映射$f:G\to G'$称为 ($G$到$G'$的) 一个\textbf{群同态}, 如果$f$满足对任意$a,b\in G$有$f(ab)=f(a)f(b)$.
+        \item 设$R,R'$是两个环, 映射$f:R\to R'$称为 ($R$到$R'$的) 一个\textbf{环同态}, 如果$f$满足
+        \begin{enumerate}[(1)]
+            \item $f(a+b)=f(a)+f(b)$;
+            \item $f(ab)=f(a)f(b)$;
+            \item $f(1_R)=1_{R'}$.
+        \end{enumerate}
+        其中$1_R,1_{R'}$分别是$R$与$R'$的乘法幺元.
+    \end{itemize}
+\end{defn}
+
+在本讲义中, 我们会直接使用同态的相关运算性质而不加证明, 读者有疑问时不妨自行证明, 大部分的证明都与线性映射类似\footnote{实际上, 线性映射就是向量空间之间的同态.}.
+
+使用同态, 我们可以定义子群及子环:
+
+\begin{defn}\label{subring}
+    设$X,X'$是群 (环), $X'\subset X$, 如果包含映射$i:X'\to X$是群 (环) 同态, 那么称$X'$是$X$的子群 (环).
+    如果$X'\neq\{e\}(\{0\}),X$, 那么称$X'$是真子群 (环).
+\end{defn}
+
+定义~\ref{subring}~无外乎就是说$X'$在$X$的运算下成群或者环, 请读者自行证明这一点.
+等价的一些检验方法有
+\begin{itemize}
+    \item (对群) 关于除法封闭;
+    \item (对环) 关于减法和乘法封闭, 包含幺元.
+\end{itemize}
+等价性在高等代数I课程中有过证明.
+
+对于两个群或者环, 我们可以定义他们之间的\textit{同构}, 这时它们在代数运算的意义下可以看作是一样的.
+\begin{defn}
+    设$X, X'$是两个群或者环, 如果存在同态$f:X\to X',\ g:X'\to X$使得$f\circ g=\mathrm{id}_{X'},\ g\circ f=\mathrm{id}_X$, 那么称$X$与$X'$同构.
+\end{defn}
+
+\begin{defn}
+    一个群$G$的所有自同构构成一个群, 称为$G$的自同构群, 记为$\Aut(G)$.
+\end{defn}
+
+\begin{ex}\label{inverse}
+    如果$f:X\to X'$是同态且是双射, 证明$f$是同构.
+\end{ex}
+
+对同态, 我们会考虑同态的核.
+
+\begin{defn}
+    对群而言, 设$f:G\to G'$是一个群同态, 定义$f$的\textbf{核}$\ker f:=f^{-1}(e)$.
+    对环而言, 设$g:R\to R'$是一个环同态, 定义$g$的核为$\ker g:=g^{-1}(0)$.
+\end{defn}
+
+核的定义与线性映射的核的定义是相同的.
+同态的核是很重要的研究对象, 我们将要用核定义两种很重要的子集.
+
+\begin{lem}\label{ker is subgroup}
+    如果$f:G\to G'$是同态, 那么$\ker f$是$G$的子群.
+\end{lem}
+\begin{proof}
+    我们证明$\ker f$在$G$的运算下成群.
+    这只需要证明$\ker f$关于除法封闭.
+    对$a,b\in\ker f$, 考虑$f(ab^{-1})$.
+    由于$f(b)f(b^{-1})=f(bb^{-1})=f(e)$, 而$f(e)=f(ee)=f(e)f(e)$得出$f(e)=e$, 所以$f(b^{-1})=(f(b))^{-1}$.
+    因此$f(ab^{-1})=f(a)(f(b))^{-1}=ee^{-1}=e$, 即$ab^{-1}\in\ker f$.
+\end{proof}
+
+\begin{defn}
+    设$G$是一个群, 如果$N\subset G$是一个同态的核, 那么称$N$是$G$的一个\textbf{正规子群}, 并记作$N\lhd G$.
+    设$R$是一个环, 如果$\mathfrak{a}\subset R$是一个同态的核, 那么称$\mathfrak{a}$是$R$的一个\textbf{理想}.
+
+    同样的, 当$N\neq\{e\},G$, $\mathfrak{a}\neq\{0\},R$时, 称$N$或$\mathfrak{a}$为真正规子群或真理想.
+\end{defn}
+
+\begin{prop}[正规子群的性质]
+    设$N\lhd G$, 那么对任意$g\in G$及$n\in N$, 有$gng^{-1}\in N$.
+\end{prop}
+\begin{proof}
+    设$N=\ker f$, 那么有$f(gng^{-1})=f(g)f(n)(f(g))^{-1}=f(n)=e$, 所以$gng^{-1}\in\ker f=N$.
+\end{proof}
+
+\begin{prop}[理想的性质]\label{defn of ideal}
+    设$\mathfrak{a}$是$R$的理想.
+    \begin{enumerate}[\rm (1)]
+        \item $\mathfrak{a}$是$R$的子加群;
+        \item 对任意的$a\in\mathfrak{a}$与$r\in R$, 有$ar,ra\in\mathfrak{a}$.
+    \end{enumerate}
+\end{prop}
+\begin{proof}
+    (1) 环同态是两个环之间关于加法的群同态.\\
+    (2) 设$\mathfrak{a}=\ker f$, 那么有$f(ar)=f(a)f(r)=0\cdot f(r)=0$, 因此$ar\in\mathfrak{a}$.
+    同理$ra\in\mathfrak{a}$.
+\end{proof}
+
+\begin{rem}
+    从以上命题可以看出, 我们定义的理想在一些教材中会被合理地称作``双侧理想'', 除此之外还有所谓的``左理想''和``右理想'', 不过我们目前不讨论这些精细的定义.
+\end{rem}
+
+\section{等价关系与商}
+
+我们熟悉如下的一个命题:
+\begin{prop}
+    集合$X$上的一个等价关系$\sim$唯一决定$X$的一个分划, 这个分划得到的等价类集称为$X$的{\bf 商集}, 记为$X/\sim$.
+\end{prop}
+
+我们在本节考虑两种等价关系:
+首先是子群诱导的等价关系, 这种等价关系可以得到关于有限群子群阶数 (即元素个数) 的整除关系;
+其次是正规子群和理想诱导的等价关系, 这种等价关系可以使得商集上具有良定义的代数运算.
+
+\subsection{Lagrange定理}
+
+设群$G$具有子群$G'$.
+考虑关系$a\sim b\iff a^{-1}b\in G'$.
+我们验证这是一个等价关系:
+\begin{itemize}
+    \item[自反性] $a^{-1}a=e\in G'$;
+    \item[对称性] 如果$a^{-1}b\in G'$, 那么$b^{-1}a=(ab^{-1})^{-1}\in G'$;
+    \item[传递性] 如果$a^{-1}b,b^{-1}c\in G$, 那么$a^{-1}c=a^{-1}bb^{-1}c\in G$.
+\end{itemize}
+因此$\sim$给出$G$的一个分划.
+这个分划具有如下的一个性质:
+
+\begin{prop}\label{cardinal of coset}
+    $G/\sim$的每个等价类的基数均相等, 且都等于$|G'|$.
+\end{prop}
+\begin{proof}
+    设$C$是一个等价类, 我们建立$G'$到$C$的一个双射.
+    任取$a\in C$, 定义
+    \begin{align*}
+        \varphi:G'&\to C\\
+        g&\mapsto ag
+    \end{align*}
+    首先这个映射是良定义的, 因为有$a^{-1}ag=g\in G'$.
+    其次这个映射一定是单射, 因为$ag=ag'\implies g=g'$.
+    最后这个映射一定是满射, 因为对任意$b\in C$, 设$a^{-1}b=g'$, 那么就有$b=aa^{-1}b=ag'$.
+    因此$\varphi$是一个双射, 有$|C|=|G'|$.
+\end{proof}
+
+通过命题~\ref{cardinal of coset}~的证明, 我们可以看出$G/\sim$的每一个等价类都由$G$中的一个元素左乘$G'$中所有元素得到.
+于是我们定义
+\begin{defn}
+    定义$G'$的一个\textbf{左陪集}为$aG':=\{ag'\in G|\ g'\in G'\}$.
+\end{defn}
+
+将等价关系与商集翻译称陪集的语言就是
+\begin{prop}
+    左陪集$aG'$与$bG'$相等当且仅当$a^{-1}b\in G'$.
+\end{prop}
+\begin{prop}
+    设$G'$是$G$的子群, 那么适当选取代表元, $G$有陪集分解$G=\coprod aG'$.
+\end{prop}
+
+当$G$是有限群时, 通过陪集分解, 我们能立刻得到
+\begin{thm}[Lagrange]
+    设$G$是有限群, $G'$是$G$的子群, 那么$G'$的阶整除$G$的阶.
+\end{thm}
+
+与左陪集相同, 我们也可以定义右陪集:
+\begin{defn}
+    定义$G'$的一个\textbf{右陪集}为$G'a:=\{g'a\in G|\ g'\in G'\}$.
+\end{defn}
+\begin{prop}
+    右陪集$G'a$与$G'b$相等当且仅当$ab^{-1}\in G'$.
+\end{prop}
+\begin{prop}
+    设$G'$是$G$的子群, 那么适当选取代表元, $G$有陪集分解$G=\coprod G'a$.
+\end{prop}
+
+\subsection{商群与商环}
+
+首先, 我们证明正规子群的陪集类上将会存在群的乘法.
+\begin{thm}
+    设群$G$与子群$N\subset G$满足对任意$g\in G$及$n\in N$有$gng^{-1}\in N$, 那么$N$的陪集类构成一个群, 记为$G/N$, 并且$\pi:G\to G/N, a\mapsto aN$构成典范同态.
+\end{thm}
+\begin{proof}
+    我们在$G/N$上定义乘法
+    \[(aN,bN)\mapsto abN\]
+    一旦证明这个乘法是良定义的, 将立刻得到$\varphi$是同态.
+    如果$c\in aN,d\in bN$, 有
+    \[(ab)^{-1}cd=b^{-1}a^{-1}cd=b^{-1}(a^{-1}c)b(b^{-1}d)\in N\]
+    所以乘法是良定义的. $G/N$显然在这个乘法下成群.
+\end{proof}
+
+\begin{col}
+    $N\lhd G$当且仅当对任意$g\in G$及$n\in N$, 有$gng^{-1}\in N$.
+\end{col}
+
+\begin{ex}
+    证明正规子群的左陪集与右陪集相等, 即$N\lhd G$时有$aN=Na$.
+\end{ex}
+
+对环而言, 也有类似结论, 证明也是类似的.
+\begin{thm}
+    设$\mathfrak{a}$是环$R$的子加群, 满足命题~\ref{defn of ideal}~中的性质, 那么$\mathfrak{a}$的陪集类构成一个环, 记为$R/\mathfrak{a}$, 并且$\pi:R\to R/\mathfrak{a},r\to r+\mathfrak{a}$构成典范同态.
+\end{thm}
+
+\begin{col}
+    命题~\ref{defn of ideal}~给出了子加群为理想的充分必要条件.
+\end{col}
+
+关于商结构, 我们有如下的一些定理.
+
+\begin{thm}[第一同构定理]
+    设$\varphi:G\to H$是群的满同态, 那么一定有$G/\ker\varphi$与$H$同构, 且同构映射$\overline\varphi$使得以下图表交换
+    \[\begin{tikzcd}
+        G \ar[d, "\pi"]\ar[dr, "\varphi"] & \\
+        G/\ker\varphi \ar[r, dashed, "\overline\varphi"] & H
+    \end{tikzcd}\]
+\end{thm}
+\begin{proof}
+    定义映射
+    \begin{align*}
+        \overline{\varphi}:G/\ker\varphi&\to H\\
+        a\ker\varphi&\mapsto\varphi(a)
+    \end{align*}
+    对$b\in G$满足$a\ker\varphi=b\ker\varphi$, 有$b^{-1}a\in\ker\varphi$,
+    \[b\ker\varphi\mapsto\varphi(b)=\varphi(b)\varphi(b^{-1}a)=\varphi(a)\]
+    从而$\overline\varphi$是良定义的, 并且易于发现是同态.
+    并且由定义, $\overline\varphi$使得上述图表交换, 从而由$\varphi$满知$\overline\varphi$是满射.
+    最后我们说明$\overline\varphi$是单射, 如果$\varphi(a)=\varphi(b)$, 那么$\varphi(a^{-1}b)=e$, 从而$a^{-1}b\in\ker\varphi$, 即$a\ker\varphi=b\ker\varphi$.
+\end{proof}
+
+\begin{thm}[对应定理]
+    设$f:G\to G'$是满的群同态, 那么对$G$包含$\ker f$的子群$H$, 及$G'$的子群$H'$, 有
+    \begin{enumerate}[(1)]
+        \item $f(H)$是$G'$的子群, $f^{-1}(H')$是$G$包含$\ker f$的子群;
+        \item $G$包含$\ker f$的子群与$G'$的子群通过$f$一一对应;
+        \item 如果$H\lhd G$, 那么也有$f(H)\lhd G'$;
+        \item 如果进一步地$G$是有限群, 那么$|H|=|\ker f||f(H)|$.
+    \end{enumerate}
+\end{thm}
+\begin{proof}
+    (1) 注意到$f(h_1)(f(h_2))^{-1}=f(h_1h_2^{-1})$即可.\\
+    (2) 只需验证不同的子群对应的子群不同.
+    设$H_1\neq H$是$G$包含$\ker f$的子群, 那么至少存在两个陪集$a\ker f$与$b\ker f$分属于两个子群, 此时$f(a)\neq f(b)$.
+    反过来也同理.\\
+    (3) 设$h\in H$, 那么对$f(a)\in G'$ ($f$满) 有$f(a)f(h)(f(a))^{-1}=f(aha^{-1})\in f(H)$, 从而$f(H)\lhd G'$.\\
+    (4) 由第一同构定理即得.
+\end{proof}
+
+\begin{ex}
+    陈述并证明环的第一同构定理和对应定理. (注意对应定理是理想间的对应)
+\end{ex}
+
+\section{乘积}
+
+我们分别讨论群和环上的乘积结构.
+
+\subsection{乘积群}
+
+设$G,G'$是两个群, 一种简单的构造新群的方式是考虑它们的Descartes积, 即在$G\times G'$上定义乘法
+\[(g_1,g_1')\cdot(g_2,g_2')=(g_1g_2,g_1'g_2')\]
+容易验证这个乘法使得$G\times G'$成为一个群.
+
+\begin{defn}
+    上述构造称为$G$与$G'$的\textbf{直积}.
+\end{defn}
+
+而另一种更有趣且更重要的构造是子群间的乘积.
+
+\begin{thm}\label{prod group}
+    设$H,K$是$G$的子群, 定义映射$f:H\times K\to G,(h,k)\mapsto hk$.
+    记$f$的像集为$HK$.
+    \begin{enumerate}[\rm (1)]
+        \item $f$是单射当且仅当$H\cap K=\{e\}$;
+        \item $f$是同态当且仅当$H$中所有的元素与$K$中所有元素交换;
+        \item 如果$H$是$G$的正规子群, 那么$HK$是$G$的子群;
+        \item $f$是$H\times K$到$G$的同构, 当且仅当$HK=G$, $H\cap K=\{e\}$且$H,K$为$G$的正规子群.
+    \end{enumerate}
+\end{thm}
+\begin{proof}
+    (1) $h_1k_1=h_2k_2\iff h_1h_2^{-1}=k_2k_1^{-1}\in H\cap K$, 那么就有$f$是单射当且仅当$H\cap K=\{e\}$.\\
+    (2) 注意到$f(h_1h_2,k_1k_2)=h_1h_2k_1k_2$, $f(h_1,k_1)f(h_2,k_2)=h_1k_1h_2k_2$, 两者相等当且仅当$h_2k_1=k_1h_2$, 由任意性, 此即$H,K$中所有元素交换.\\
+    (3) 只需验证$HK$中的元素关于除法封闭.
+    取$h_1k_1,h_2k_2$, 有
+    \[h_1k_1(h_2k_2)^{-1}=h_1((k_1k_2^{-1})h_2^{-1}(k_2k_1^{-1}))(k_1k_2^{-1})\in HK\]
+    (4) 又假设可知$f$满且单, 从而是双射.
+    而$H,K\lhd G$, 考虑$hkh^{-1}k^{-1}$, 有
+    \[(hkh^{-1})k^{-1}=h(kh^{-1}k^{-1})\in H\cap K\]
+    所以$hkh^{-1}k^{-1}=e$, 即$h,k$交换.\footnote{这个技巧叫做取\textbf{交换子}.}
+    因此$f$是一个同态, 而且是双射, 从而是同构.
+\end{proof}
+
+\subsection{环上的乘积}
+
+我们首先类似群定义环的直积.
+\begin{defn}
+    两个环的\textbf{直积}是它们的Descartes积及其上自然的运算.
+\end{defn}
+
+设$\mathfrak{a},\mathfrak{b}$是环$R$的理想.
+定义一个新的理想$\mathfrak{a}+\mathfrak{b}=\{a+b\in R|\ a\in\mathfrak{a},b\in\mathfrak{b}\}$, 容易证明这确实是一个理想.
+类似于定理~\ref{prod group}, 我们可以定义理想的直和.
+
+\begin{defn}
+    设$\mathfrak{a},\mathfrak{b}$是环$R$的理想.
+    如果$\mathfrak{a}\cap\mathfrak{b}=\{0\},\mathfrak{a}+\mathfrak{b}=R$, 那么称$R$是$\mathfrak{a}$与$\mathfrak{b}$的\textbf{直和}, 并记$R=\mathfrak{a}\oplus\mathfrak{b}$.
+\end{defn}
+
+\begin{ex}\label{unit of ideal}
+    证明当$R=\mathfrak{a}\oplus\mathfrak{b}$时, $\mathfrak{a}$与$\mathfrak{b}$均包含单位元.
+\end{ex}
+
+按照习题~\ref{unit of ideal}~中的结论, $\mathfrak{a},\mathfrak{b}$可以看成是环.
+那么按照定理~\ref{prod group}, 我们有$\mathfrak{a}\times\mathfrak{b}$与$\mathfrak{a}\oplus\mathfrak{b}$作为加群同构, 并且这个同构可以延拓为环同构.
+因此, 我们认为两个环的直积和直和是一样的.
+
+环的直积有一个重要的结论, 即中国剩余定理.
+\begin{defn}
+    设$\mathfrak{a},\mathfrak{b}$是交换环$A$的理想, 如果$\mathfrak{a}+\mathfrak{b}=A$, 那么称$\mathfrak{a},\mathfrak{b}$\textbf{互素}.
+\end{defn}
+
+\begin{thm}[中国剩余定理]
+    设交换环$A$的理想$\mathfrak{a},\mathfrak{b}$互素, 那么有同构$A/(\mathfrak{a}\cap\mathfrak{b})\simeq A/\mathfrak{a}\times A/\mathfrak{b}$.
+\end{thm}
+\begin{proof}
+    定义同态
+    \begin{align*}
+        \varphi:A&\to A/\mathfrak{a}\times A/\mathfrak{b}\\
+        a&\mapsto (a+\mathfrak{a},a+\mathfrak{b})
+    \end{align*}
+    对$(x+\mathfrak{a},y+\mathfrak{b})$, 取$a+b=1$及$z=ay+bx$, 就有
+    \begin{gather*}
+        z\equiv bx\equiv x \pmod{\mathfrak{a}}\\
+        z\equiv ay\equiv y \pmod{\mathfrak{b}}
+    \end{gather*}
+    从而$\varphi(z)=(x+\mathfrak{a},y+\mathfrak{b})$, 即$\varphi$是满射.
+    另一方面, $a\in\ker\varphi$当且仅当$a\in\mathfrak{a}\cap\mathfrak{b}$, 所以第一同构定理给出了$A/(\mathfrak{a}\cap\mathfrak{b})\simeq A/\mathfrak{a}\times A/\mathfrak{b}$.
+\end{proof}
+
+需要指出的是, 上面有关环的定义与结论都不局限在两项.
+特别地, 中国剩余定理也有一般的有限多个理想的形式, 我们陈述整数的版本, 并直接给出一个常用的计算公式:
+\begin{thm}
+    设$n_1,\cdots,n_m$是两两互素的整数, 那么同余方程组
+    \begin{gather*}
+        x\equiv a_1\pmod{n_1}\\
+        x\equiv a_2\pmod{n_2}\\
+        \cdots\\
+        x\equiv a_m\pmod{n_m}
+    \end{gather*}
+    有模$N=n_1\cdots n_m$意义下的唯一解
+    \[x\equiv\sum_{i=1}^ma_i\frac{N}{n_i}l_i\pmod{N}\]
+    其中$l_i$满足$l_iN/n_i\equiv 1\pmod{n_i}$.
+\end{thm}
+
+证明是直接的, 代入计算即可.
+
+\section{生成关系}
+
+首先我们定义由一个集合生成的子群.
+
+\begin{defn}
+    设$G$是一个群, 集合$X\subset G$, 称{\bfseries $X$生成的子群}为
+    \[\langle X\rangle:=\{a_1^{\varepsilon_1}a_2^{\varepsilon_2}\cdots a_n^{\varepsilon_m}|\ a_i\in X,\varepsilon_i=\pm 1,i=1,2\cdots,m,m\in\mathbb{N}\}\]
+    其中的$a_i$一般有重复.
+    如果$G=\langle X\rangle$, 则称$G${\bf 由$X$生成}.
+    当$X$是有限集时, 称$G$是{\bf 有限生成群}.
+\end{defn}
+
+我们考虑由一个元素生成的群.
+\begin{defn}
+    设$C=\langle a\rangle$, 那么称$C$是\textbf{循环群}.
+\end{defn}
+
+循环群的结构是简单的.
+\begin{prop}
+    设$C$是循环群, 那么$C$的阶数为无穷大时, $C$同构于$\mathbb{Z}$; $C$的阶数为$n$时, $C$同构于$\mathbb{Z}/n\mathbb{Z}$.
+\end{prop}
+
+\begin{defn}
+    设$G$是群, $a\in G$, 那么定义$a$的\textbf{阶}为$\langle a\rangle$的阶.
+\end{defn}
+
+由Lagrange定理可以得到:
+\begin{col}
+    有限群中元素的阶整除群的阶.
+\end{col}
+
+\begin{thm}[Fermat小定理]
+    设$p$是素数, 那么对整数$a$有$a^p\equiv a\pmod{p}$.
+\end{thm}
+
+\begin{ex}
+    证明费马小定理.
+\end{ex}
+
+然后我们来定义一个集合生成的理想.
+为了方便, 我们只讨论交换环.
+\begin{defn}
+    设$X$是交换环$A$的子集, 那么$X$生成的理想定义为
+    \[\langle X\rangle=\left\{\left.\sum_{i=1}^mr_ia_i\right|\ r_i\in A,a_i\in X,i=1,2,\cdots,m,m\in\mathbb{N}\right\}\]
+    当$X$有限时, 称$\langle X\rangle$是有限生成的.
+\end{defn}
+
+关于理想的有限生成有两个等价的条件.
+第一个是
+
+\begin{defn}
+    称交换环$A$满足\textbf{升链条件}, 如果对于任意上升的理想链$\mathfrak{a}_1\subset\mathfrak{a}_2\subset\cdots$, 都存在正整数$n$使得$\mathfrak{a}_n=\mathfrak{a}_{n+1}=\cdots$.
+\end{defn}
+
+关于第二个条件, 我们需要回忆偏序关系.\footnote{如果读者跳过了Nother性这一节, 那么偏序关系可以在环的极大理想处学习.}
+\begin{defn}
+    非空集合$P$上的一个\textbf{偏序关系}$\prec$满足传递性, 自反性与反对称性, 即
+    \begin{enumerate}[(1)]
+        \item $a\prec b,b\prec c\implies a\prec c$;
+        \item $a\prec a$;
+        \item $a\prec b,b\prec a\implies a=b$.
+    \end{enumerate}
+    一个具有偏序关系的集合称为\textbf{偏序集}.
+    偏序集$P$上的一个\textbf{极大元}$m$满足对任意$a\in P$, 如果$m\prec a$, 那么$a=m$.
+\end{defn}
+
+\begin{prop}
+    设$A$是交换环, 则如下三个命题等价:
+    \begin{enumerate}[\rm (1)]
+        \item $A$满足升链条件;
+        \item $A$中任意理想的集合存在极大元 (以包含关系为偏序);
+        \item $A$中任意的理想都是有限生成的.
+    \end{enumerate}
+\end{prop}
+\begin{proof}
+    $(1)\implies (2)$: 用反证法, 假设$\mathscr{I}$是$A$中一些理想构成的非空集合, 且其中没有极大元.
+    我们归纳地构造一列理想列: 取$\mathfrak{a}_1\in\mathscr{I}$; 假定$\mathfrak{a}_n$已经构造, 那么由于$\mathfrak{a}_n$不是极大元, 存在$\mathfrak{a}_{n+1}$使得$\mathfrak{a}_n\subsetneqq\mathfrak{a}_{n+1}$.
+    因此$A$中存在严格上升的理想列
+    \[\mathfrak{a}_1\subsetneqq\mathfrak{a}_2\subsetneqq\cdots\subsetneqq\mathfrak{a}_n\subsetneqq\cdots\]
+    这与升链条件矛盾.\\
+    $(2)\implies (3)$: 取理想集
+    \[\mathscr{F}=\{\langle X\rangle|\ X\subset A\ \text{有限}\}\]
+    那么由假设, $\mathscr{F}$有极大元, 设为$\langle x_1,\cdots,x_n\rangle$.
+    断言$A=\langle x_1,\cdots,x_n\rangle$.
+    如若不然, 存在$x\in A$使得$x\notin\langle x_1\cdots,x_n\rangle$, 那么$\langle x_1,\cdots,x_n\rangle\subsetneqq\langle x_1,\cdots,x_n,x\rangle$, 这与$\langle x_1,\cdots,x_n\rangle$的极大性矛盾.
+    所以$A=\langle x_1,\cdots,x_n\rangle$是有限生成的.\\
+    $(3)\implies (1)$: 设$\mathfrak{a}_1\subset\mathfrak{a}_2\subset\cdots$是上升的理想链, 取
+    \[\mathfrak{a}=\bigcup_{n\geq 1}\mathfrak{a}_n\]
+    容易验证$\mathfrak{a}$是一个理想.
+    设$\mathfrak{a}=\langle x_1,\cdots,x_m\rangle$.
+    那么每个$x_i$一定属于某个理想$\mathfrak{a}_{n_i}$, 取$N=\max\{n_i|\ i=1,2,\cdots,m\}$, 就有$\langle x_1,\cdots,x_m\rangle\subset\mathfrak{a}_N$.
+    那么对任意$n\geq N$, 都有
+    \[\langle x_1,\cdots,x_m\rangle=\mathfrak{a}_N\subset\mathfrak{a}_n\subset\mathfrak{a}=\langle x_1,\cdots,x_m\rangle\]
+    从而$\mathfrak{a}_n=\mathfrak{a}_N$, 即$A$满足升链条件.
+\end{proof}
+
+\begin{defn}
+    如果交换环$A$满足升链条件, 那么称$A$是\textbf{Noerther}的.
+\end{defn}
+
+\section{例题与习题}
+
+\begin{eg}
+    设$p<q$是两个素数, 我们证明$pq$阶群$G$至多只有一个$q$阶子群.
+    假设$Q,S$是两个$G$的$q$阶子群, 由于素数阶群都是循环群, 所以他们的交为$\{e\}$ (请读者证明这两个断言).
+    对任意$q_1,q_2\in Q$, 有$q_1^{-1}q_2\in S\implies q_1^{-1}q_2=e$, 则$q_1=q_2$, 从而$Q$中的元素分属于不同的$S$的陪集中.
+    因此对$G$做陪集分解, $G$至少有$q$个$S$的陪集, 从而$|G|\geq |Q||S|=q^2>pq$, 矛盾.
+    所以$G$至多有一个$q$阶子群.
+\end{eg}
+
+\begin{eg}
+    我们将在本例中计算$\mathbb{Q}$的自同构群.
+    设$f\in\Aut\mathbb{Q}$, 我们先验地给出$f(1)=r(r\neq 0)$.
+    对于正整数$n$, 通过归纳法可以得到$f(n)=rn$.
+    而对负整数$m$, 有
+    \[0=f(0)=f(m)+f(-m)\implies f(m)=-f(-m)=-(-rm)=rm\]
+    对有理数$p/q$, 我们有
+    \[qf(p/q)=\underbrace{f(p/q)+\cdots+f(p/q)}_{{q\text{个}}}=f(p)=pr\]
+    从而$f(p/q)=r(p/q)$.
+    因此对所有$x\in\mathbb{Q}$有$f(x)=rx$.
+    注意到如果$g(x)=sx$是另一个自同构, 那么有$f\circ g(x)=rsx$.
+    从而有$\Aut\mathbb{Q}\simeq\mathbb{Q}^*$, 即有理数乘法群.
+\end{eg}
+
+\begin{eg}
+    我们将在本例中证明第三同构定理, 以演示如何使用第一同构定理.
+    第三同构定理断言, 如果$H,N$是$G$的正规子群且$N\subset H$, 那么有
+    \begin{equation}
+        \frac{G}{H}\simeq\frac{G/N}{H/N}\label{3rd iso thm}
+    \end{equation}
+    首先需要证明$H/N\lhd G/N$, 这只需要注意到
+    \[(gN)(hN)(g^{-1}N)=N(ghg^{-1})NN=ghg^{-1}N\in H/N\]
+    即可.
+    而定义同态
+    \begin{align*}
+        \varphi:G/N&\to G/H\\
+        gN&\mapsto gH
+    \end{align*}
+    由于$N\subset H$, 上述定义是良好的.
+    我们考虑$\ker\varphi$, 有$\varphi(gN)=H\iff g\in H$, 那么等价于$gN\in H/N$.
+    所以$\ker\varphi=H/N$, 第一同构定理给出~\eqref{3rd iso thm}~式.
+\end{eg}
+
+\begin{eg}
+    我们将在本例中讨论根式理想.
+    设$A$是交换环, $\mathfrak{a}$是$A$的理想.
+    定义$\sqrt{\mathfrak{a}}=\{a\in A|\ a^n\in\mathfrak{a},\exists n\in\mathbb{N}\}$.
+    我们证明$\sqrt{\mathfrak{a}}$是$A$的理想.
+    首先对于$a,b\in\sqrt{\mathfrak{a}}$, 设$a^n\in\mathfrak{a},b^m\in\mathfrak{a}$.
+    由于$A$是交换环, $A$上二项式定理成立, 从而有
+    \begin{align}
+        (a-b)^{m+n}&=\sum_{i=0}^{m+n}(-1)^{m+n-i}\binom{m+n}{i}a^ib^{m+n-i}
+    \end{align}
+    在以上$m+n$个求和项中, $0\leq i\leq n$时$b^{m+n-i}\in\mathfrak{a}$, $n+1\leq i\leq m+n$时$a^i\in\mathfrak{a}$, 所以求和式$(a-b)^{m+n}$在$\mathfrak{a}$中, 即$\sqrt{\mathfrak{a}}$是$A$的子加群.
+    其次对于$a\in\sqrt{\mathfrak{a}},r\in A$, 有$(ra)^n=r^na^n\in\sqrt{\mathfrak{a}}$.
+    综上可知$\sqrt{\mathfrak{a}}$是$A$的理想.
+\end{eg}
+
+\begin{eg}
+    我们将在本例讨论环的直和作为\textit{余积}的性质.
+    设$\mathfrak{a},\mathfrak{b}$是环$R$的理想, $R=\mathfrak{a}\oplus\mathfrak{b}$.
+    假设对环$A$有同态$f:\mathfrak{a}\to A,g:\mathfrak{b}\to A$, 那么存在唯一的同态$\varphi:R\to A$使得下图交换
+    \[\begin{tikzcd}
+        \mathfrak{a}\ar[dr,"i_1"]\ar[ddr,"f"'] & & \mathfrak{b}\ar[dl,"i_2"']\ar[ddl,"g"]\\
+        & R\ar[d, dashed, "\varphi"] & \\
+        & A &
+    \end{tikzcd}\]
+    图中$i_1,i_2$分别是$\mathfrak{a},\mathfrak{b}$的典范嵌入映射.
+    事实上, 对$r=a+b$, 定义$\varphi:r\mapsto f(a)+g(b)$.
+    那么显然$\varphi$使得图表交换, 只需说明唯一性.
+    假设$\psi$也使图表交换, 那么考虑$\varphi-\psi$, 对$r=a+b$有
+    \begin{align*}
+        \varphi(r)-\psi(r)&=f(a)+g(b)-\psi(a)-\psi(b)\\
+        &=f(a)-\psi(i_1(a))+g(b)-\psi(i_2(b))\\
+        &=f(a)-f(a)+g(b)-g(b)\\
+        &=0
+    \end{align*}
+    因此$\varphi=\psi$, 即同态是唯一的.
+\end{eg}
+
+\begin{ex}
+    证明在偶数阶群中, 方程$x^2=e$有偶数个解.
+\end{ex}
+
+\begin{ex}
+    证明群$G$是Abel群当且仅当$g\to g^{-1}$是$G$的自同构, 即$G\to G$的同构.
+\end{ex}
+
+\begin{ex}\label{center}
+    设$G$是群, $Z(G)$是$G$的\textbf{中心}, 即$Z(G):=\{z\in G|\ \forall g\in G:gz=zg\}$.
+    \begin{enumerate}[(1)]
+        \item $Z(G)$是$G$的正规子群;
+        \item $G/Z(G)$同构于$G$的自同构群$\Aut(G)$的子群.
+        [提示: 考虑{\itshape 内自同构}, 即每个$g$诱导了一个$\mathrm{int}_g:G\to G,x\mapsto gxg^{-1}$.]
+    \end{enumerate}
+\end{ex}
+
+\begin{ex}
+    设$R_1,R_2$是两个环, $p_1:R_1\times R_2\to R_1,p_2:R_1\times R_2\to R_2$是典范投影映射.
+    假设对环$A$存在同态$f:A\to R_1,g:A\to R_2$, 那么存在唯一的同态$\varphi:A\to R_1\times R_2$使得下图交换
+    \[\begin{tikzcd}
+        & A\ar[ddl, "f"'] \ar[ddr, "g"] \ar[d, dashed, "\varphi"] & \\
+        & R_1\times R_2\ar[dl, "p_1"] \ar[dr, "p_2"'] & \\
+        R_1 & & R_2
+    \end{tikzcd}\]
+\end{ex}
+
+\begin{ex}
+    设$A$是交换环, $X$是$A$的非空子集, 定义$\Ann(X)=\{a\in A|\ \forall x\in X:ax=0\}$.
+    证明$\Ann(X)$是$A$的理想.
+\end{ex}
+
+\begin{ex}
+    设$A$是交换环, $\mathfrak{a},\mathfrak{b}$是$A$的理想, 定义\textbf{乘积理想}
+    \[\mathfrak{a}\mathfrak{b}=\left\{\left.\sum_{i=1}^ma_ib_i\right|\ a_i\in\mathfrak{a},b_i\in\mathfrak{b},i=1,2\cdots,m,m\in\mathbb{N}\right\}\]
+    证明$\mathfrak{a}\mathfrak{b}\subset\mathfrak{a}\cap\mathfrak{b}$, 并给出严格包含的例子, 并进一步证明$\sqrt{\mathfrak{a}\mathfrak{b}}=\sqrt{\mathfrak{a}\cap\mathfrak{b}}$.
+\end{ex}
+
+\begin{ex}
+    设$R$是Noether环, $\mathfrak{a}$是$R$的理想, 证明$R/\mathfrak{a}$也是Noether环.
+\end{ex}
