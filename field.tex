@@ -286,3 +286,38 @@
     而显然$[\mathbb{Q}[\sqrt{2},\sqrt{3}]:\mathbb{Q}]=4$, 所以$[\mathbb{Q}(\sqrt{2},\sqrt{3}),\mathbb{Q}(\sqrt{2}+\sqrt{3})]=1$, 即$\mathbb{Q}(\sqrt{2},\sqrt{3})=\mathbb{Q}(\sqrt{2}+\sqrt{3})$.
 \end{eg}
 
+\begin{eg}
+    我们证明无限域的乘法群不是循环群.
+    设$K$是无限域, 假设$K$的乘法群是循环群, 设$K^*=\langle a\rangle$.
+    设$K$的素域为$k$, 那么$K=k(a)$.
+    如果$K$的特征为$0$, 那么$k^*\simeq\mathbb{Q}^*$是$K^*$的子群, 从而$\mathbb{Q}^*$是循环群, 矛盾.
+    如果$K$的特征为$p$, 此时$k\simeq\mathbb{F}_p$.
+    考虑$a+a^2$, 一定有$a+a^2\in K=0\cup\langle a\rangle$, 即$a+a^2=0$或$a+a^2=a^m(m>2)$, 这说明$a$是代数元, $K=k(a)$是有限域, 矛盾.
+    因此无限域的乘法群不能是循环群.
+\end{eg}
+
+\begin{eg}
+    设$a,b\in\mathbb{F}_{2^n}$, $n$是奇数, 并且$a,b$满足$a^2+ab+b^2=0$, 我们证明$a=b=0$.
+    事实上, 如果$a,b$其一为$0$也能推出另一个为$0$, 于是我们假设$a,b$均不为$0$.
+    此时我们可以得到$(a/b)^2+(a/b)+1=0$, 设$a/b=\omega$, 那么$\omega^3=1$.
+    由于$\mathbb{F}_{2^n}^*$是循环群, 我们设其由$u$生成.
+    此时设$\omega=u^k$, 那么$1=\omega^3=u^{3k}$, 从而$2^n-1=3k$.
+    但当$n$是奇数时有$2^n-1\equiv (-1)^n-1\equiv 1\pmod{3}$, 不可能有$2^n-1=3k$, 矛盾.
+    所以$a,b$均为$0$.
+\end{eg}
+
+\begin{ex}
+    设$L/K$是域扩张, $\alpha\in L$是$K$上的奇数次代数元, 证明$\alpha^2$也是$K$上的奇数次代数元, 且$K(\alpha)=K(\alpha^2)$.
+\end{ex}
+
+\begin{ex}
+    设$\alpha,\beta$分别是域$K$上的$m,n$次代数元.
+    \begin{enumerate}[(1)]
+        \item 证明$[K(\alpha,\beta),K]\leq mn$;
+        \item 当$(m,n)=1$时, 证明$[K(\alpha,\beta),K]=mn$.
+    \end{enumerate}
+\end{ex}
+
+\begin{ex}
+    构造一个$8$元域, 并给出它的加法表与乘法表.
+\end{ex}
