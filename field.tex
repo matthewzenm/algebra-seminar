@@ -112,75 +112,68 @@
     假设$E/L,L/K$均为代数扩张, 那么$E/K$也是代数扩张.
 \end{col}
 
-\section{分裂域}
+\section{代数闭包与分裂域}
 
 对于一个代数方程, 我们总希望能够找到一个域使得它``有根''.
 而严格地描述这一点则需要定义\textit{分裂域}的概念.
 
 \begin{defn}
-    设$K$是域, $p(x)\in K[x]$, 如果扩域$L/K$使得$p(x)$在$L$上可以分解为一次因式的乘积 (简称为\textbf{分裂})
+    设$K$是域, $S\subset K[x]$, 如果扩域$L/K$使得$S$中的任意$p(x)$在$L$上可以分解为一次因式的乘积 (简称为$p(x)$在$L$中\textbf{分裂})
     \[p(x)=(x-\alpha_1)\cdots(x-\alpha_n)\]
-    且$L=K(\alpha_1,\cdots,\alpha_n)$, 那么称$L$是$p(x)$在$K$上的\textbf{分裂域}.
+    且$L$由$S$中多项式的根生成, 那么称$L$是$S$在$K$上的\textbf{分裂域}.
 \end{defn}
 
-本节的关键是证明分裂域的存在性与同构唯一性.
+为了更加方便地处理事情, 我们直接``添加域中所有多项式的根''.
+这样就定义了\textit{代数闭包}.
 
-我们首先证明分裂域的存在性.
-\begin{proof}
-    给定域$K$及$p=p_1p_2\cdots p_m\in K[x]$, 其中$p_i\ (i=1,\cdots,m)$均不可约.
-    我们对$\deg{p}$用归纳法.
-    当$\deg{p}=1$时, $K$本身就是$p(x)$的分裂域.
-    假设对$\deg{p}=n-1$成立.
-    对$\deg{p}=n$, 考虑域$K_1=K[x]/\langle p_1(x)\rangle$, 那么$p$在$K_1$上至少有一个根$\alpha$, $p$在$K_1$上可以分解为
-    \[p(x)=(x-\alpha)p_a(x)\]
-    对$p_a(x)$用归纳假设, 存在扩域$L/K_1$使得$p_a(x)$分裂为一次因式的乘积, 从而在扩域$L/K$上$p(x)$分裂为一次因式的乘积.
-    由归纳原理得证.
-\end{proof}
+\begin{defn}
+    设$K$是域, $K$的\textbf{代数闭包}是$k[x]$的分裂域.
+\end{defn}
 
-然后我们证明分裂域的同构唯一性.
-\begin{thm}[分裂域的同构唯一性]
-    设$K$是域, $p(x)\in K[x]$, 域$K'$与$K$同构, 且$p(x)$在同构映射下的像为$p'(x)$.
-    设$L,L'$分别是$p(x),p'(x)$的分裂域, 那么存在同构$L\to L'$使得以下图表交换
+我们期待的结果自然是
+\begin{prop}\label{alg closure}
+    任意域$K$的代数闭包存在.
+\end{prop}
+
+以及
+\begin{thm}[同构延拓定理]\label{iso ext thm}
+    设$K$是一个域, $S\subset K[x]$是一族多项式, $K'$与$K$同构且$S$在同构映射下的像为$S'$.
+    设$E,E'$分别是$S,S'$的分裂域, 那么存在同构$S\to S'$使得下图交换
     \[\begin{tikzcd}
-        L\ar[r, "\sim"] & L'\\
-        K\ar[r, "\sim"] \ar[u] & K' \ar[u]
+        E\ar[r, "\sim"] & E'\\
+        K\ar[u] \ar[r, "\sim"] & K\ar[u]
     \end{tikzcd}\]
 \end{thm}
+
+代数闭包的存在性与同构延拓定理的证明较为复杂, 我们将其留在附录 \ref{proof of alg closure} 与 \ref{proof of iso ext thm} 中.
+
+\begin{col}
+    设$K$是域, $S\subset K[x]$, 那么$S$的分裂域存在.
+\end{col}
 \begin{proof}
-    设$i:K\xrightarrow{\sim}K'$是同构, 我们也用$i$表示延拓到$K[x]\to K'[x]$的同构.
-    依然对$p(x)$的次数用归纳法.
-    $\deg{p}=1$时, $K=L,K'=L'$, 命题显然成立.
-    假设命题对$\deg{p}=n-1$成立, 那么对$p$的某个不可约因子$p_1$, 有
-    \[K(\alpha)=\frac{K[x]}{\langle p(x)\rangle}\simeq\frac{K'[x]}{\langle i(p(x))\rangle}=K(\alpha')\]
-    从而可以得到交换图
-    \[\begin{tikzcd}
-        K(\alpha)\ar[r,"\sim"] & K'(\alpha)\\
-        K\ar[u]\ar[r,"\sim"] & K'\ar[u]
-    \end{tikzcd}\]
-    而在$K(\alpha),K'(\alpha')$上$p(x),p'(x)$分别分解为一次因式与一个$n-1$次多项式的乘积, 从而按归纳假设, 可以得到两个$n-1$次多项式的分裂域的同构
-    \[\begin{tikzcd}
-        L\ar[r, "\sim"] & L'\\
-        K(\alpha)\ar[r, "\sim"] \ar[u] & K'(\alpha') \ar[u]
-    \end{tikzcd}\]
-    从而有大图表
-    \[\begin{tikzcd}
-        L\ar[r, "\sim"] & L'\\
-        K(\alpha)\ar[r, "\sim"] \ar[u] & K'(\alpha') \ar[u]\\
-        K\ar[r,"\sim"] \ar[u] & K'\ar[u]
-    \end{tikzcd}\]
-    交换, 即得到所欲证命题.
+    注意到$S$中的多项式均在$\overline{K}$中分裂, 那么取$R$为$S$中所有多项式根的集合, $K(R)\subset\overline{K}$即为$S$的分裂域.
 \end{proof}
 
-\begin{rem}
-    需要注意到, 两个分裂域之间的同构不一定是唯一的.
-    例如分别使用$i,j$表示虚数单位, $x^2+1$在$\mathbb{R}$上的两个分裂域
-    \[\begin{tikzcd}
-        \mathbb{C}=\mathbb{R}(i)\ar[rr, "h"] & & \mathbb{R}(j)\\
-        & \mathbb{R}\ar[ul] \ar[ur] &
-    \end{tikzcd}\]
-    其中$h:\mathbb{R}(i)\to\mathbb{R}(j)$可以取为$i\mapsto j$与$i\mapsto -j$, 得到两个同构.
-    分裂域间不同的同构构成了多项式的\textbf{Galois群}, 它将在Galois理论中处于中心的位置.
-\end{rem}
+\begin{col}
+    任意集合的分裂域在同构意义下唯一.
+\end{col}
+
+关于代数闭包, 有一个密切相关的概念是代数闭域:
+\begin{defn}
+    域$L$被称为是\textbf{代数闭域}, 如果$L[x]$中的任意多项式都在$L$中有根.
+\end{defn}
+\begin{prop}
+    域$K$的代数闭包$\overline{K}$是代数闭域.
+\end{prop}
+\begin{proof}
+    设$p(x)=x^n+a_{n-1}x^{n-1}+\cdots+a_0,\ a_i\in\overline{K}$.
+    由于$\overline{K}$由$K[x]$中多项式的根生成, 因此$a_i$均为$K$上的代数元.
+    对$p(x)$在某个根$\alpha$, 考虑扩张链
+    \[K\subset K(a_0,\cdots,a_{n-1})\subset K(a_0,\cdots,a_{n-1},\alpha)\]
+    容易发现两个扩张都是有限的, 所以$\alpha$也是$K$上的代数元, 从而在$\overline{K}$内.
+    因此$\overline{K}$是代数闭域.
+\end{proof}
+这说明在$\overline{K}$中不仅$K[x]$中的多项式分裂, $\overline{K}[x]$中的多项式也分裂, 这是强于代数闭包的定义的.
 
 \section{有限域}
 
@@ -263,3 +256,33 @@
     因此$\beta^m=1$, 方程$x^m-1$有至少$q-1$个根, 由多项式的Lagrange定理可知$m\geq q-1$.
     而由群的Lagrange定理知$m|q-1$, 所以$m=q-1$, 即$\langle\alpha\rangle=k^*$.
 \end{proof}
+
+\section{例题与习题}
+
+\begin{eg}
+    我们证明一个代数闭域一定有无穷多个元素.
+    否则假设$K=\{a_1,\cdots,a_n\}$是代数闭域, 我们考察多项式
+    \[(x-a_1)(x-a_2)\cdots(x-a_n)+1\]
+    $K$中任意元素都不是它的根, 所以它不在$K$上分裂, 与$K$代数闭矛盾.
+    因此代数闭域一定有无穷多个元素.
+\end{eg}
+
+\begin{eg}
+    设$x$是$\mathbb{Q}$上的超越元, $u=x^3/(x+1)$, 我们求$[\mathbb{Q}(x):\mathbb{Q}(u)]$.
+    注意到$x$满足$x^3-ux-u=0$, 所以$x$是$\mathbb{Q}(u)$上的代数元.
+    断言$u$必然是超越元, 否则如果多项式$f(u)\in\mathbb{Q}[u]$是$u$的零化多项式, 设$\deg f=d$, 那么$(x+1)^df(x^3/(x+1))\in\mathbb{Q}[x]$便是$x$的零花多项式, 矛盾.
+    又断言$t^3-ut-u\in\mathbb{Q}(u)[t]$是$x$的极小多项式, 只需要证明$t^3-ut-u$不可约.
+    如果$t^3-ut-u$可约的话, 那么一定存在一个$f(u)/g(u)$作为它的根, 但此时有
+    \[(f(u))^3-uf(u)(g(u))^2-(g(u))^3=0\]
+    与$u$是超越元矛盾.
+    因此$t^3-ut-u\in\mathbb{Q}(u)[t]$是$x$的极小多项式, 可以得到$[\mathbb{Q}(x):\mathbb{Q}(u)]=3$.
+\end{eg}
+
+\begin{eg}\label{sqrt(2)+sqrt(3)}
+    我们证明$\mathbb{Q}(\sqrt{2},\sqrt{3})=\mathbb{Q}(\sqrt{2}+\sqrt{3})$.
+    显然$\mathbb{Q}(\sqrt{2}+\sqrt{3})\subset\mathbb{Q}(\sqrt{2},\sqrt{3})$.
+    而设$u=\sqrt{2}+\sqrt{3}$, 有$u^2=5+2\sqrt{6},(u^2-5)^2=24$.
+    容易验证$(x^2-5)^2-24=x^4-10x^2+1$是不可约的四次多项式, 因此$u$的次数为$4$, 即$[\mathbb{Q}(\sqrt{2}+\sqrt{3}):\mathbb{Q}]=4$.
+    而显然$[\mathbb{Q}[\sqrt{2},\sqrt{3}]:\mathbb{Q}]=4$, 所以$[\mathbb{Q}(\sqrt{2},\sqrt{3}),\mathbb{Q}(\sqrt{2}+\sqrt{3})]=1$, 即$\mathbb{Q}(\sqrt{2},\sqrt{3})=\mathbb{Q}(\sqrt{2}+\sqrt{3})$.
+\end{eg}
+

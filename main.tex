@@ -8,7 +8,6 @@
 % \usepackage{newtxtext}
 % \usepackage{newtxmath}
 \usepackage{mathrsfs}
-\usepackage[toc]{multitoc}
 \usepackage[backend=biber,style=caspervector,utf8,seconds=true]{biblatex}
 % \usepackage[backend=biber,style=gb7714-2015]{biblatex}
 \usepackage[shortlabels]{enumitem}
@@ -17,6 +16,7 @@
 \usepackage[colorlinks]{hyperref}
 
 \addbibresource{biblio.bib}
+\defbibheading{bibliography}[参考文献]{\subsection*{#1}}
 
 % Theorem environments
 \theoremstyle{definition}
@@ -46,12 +46,14 @@
 \DeclareMathOperator{\Spec}{Spec}
 \DeclareMathOperator{\MaxSpec}{MaxSpec}
 
-\title{近世代数讨论班}
-\author{曾梦辰}
+\title{一份速通性质的近世代数讲义}
+\author{魔法少女Alkali}
 \date{最后编译: \today}
 
 \begin{document}
 \maketitle
+
+\thispagestyle{empty}
 
 \frontmatter
 \tableofcontents
@@ -63,7 +65,9 @@
 \input{ring.tex}
 \input{field.tex}
 
-\backmatter
+\appendix
+\input{omitedproofs.tex}
+
 \printbibliography[heading=bibintoc]
 
 \end{document}
