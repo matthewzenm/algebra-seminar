@@ -1,0 +1,136 @@
+\chapter{Galois理论}
+我们在本章讨论有限Galois理论.
+Galois理论的中心是Galois对应, 即一个Galois扩张的中间域与其Galois群的子群反序一一对应.
+同时作为应用, 我们会证明关于$5$次一般方程不可根式解的Abel--Ruffini定理.
+
+\section{三类域扩张}
+我们在本节讨论Galois对应所要求的域扩张, 即Galois扩张及比Galois扩张更一般的正规扩张与可分扩张.
+
+\subsection{正规扩张与可分扩张}
+
+首先我们关心一个多项式在扩域中是否有足够多的根, 与此相关的是正规扩张的概念.
+
+\begin{prop}\label{normal thmdef}
+    设$K\subset L$是代数扩张, 那么以下三个命题等价:
+    \begin{enumerate}[\rm (1)]
+        \item $K[x]$中任何在$L$上有根的多项式$p(x)$在$L[x]$中分裂;
+        \item $L$是$K$上某一族多项式的分裂域;
+        \item $\overline{K}$的所有固定$K$不动的自同构都将$L$映为$L$.
+    \end{enumerate}
+\end{prop}
+
+\begin{defn}
+    满足命题~\ref{normal thmdef}~中三个等价条件中任意一个的代数扩张称为\textbf{正规扩张}.
+\end{defn}
+
+\begin{proof}[命题~\ref{normal thmdef}~的证明]
+    我们按照$(1)\implies(2)\implies(3)\implies(1)$的顺序证明它们等价.\\
+    $(1)\implies(2)$: 对任意$\alpha\in L$, 由于$L/K$是代数扩张, 因此可以取$\alpha$在$K$上的极小多项式$p_\alpha(x)$, 那么$L$是
+    \(S=\{p_\alpha\in K[x]:\ \alpha\in L\}\)
+    的分裂域.\\
+    $(2)\implies(3)$: 设$L$是$S\subset K[x]$的分裂域, $\sigma\in\Aut{\overline{K}}$固定$K$不动.
+    那么$\sigma$也固定$S$中多项式的系数不动, 从而$S$中多项式的根被排列.
+    而$L$由$S$中多项式的根的生成, 所以$L$的元素也被排列, 从而有$\sigma(L)=L$.\\
+    $(3)\implies(1)$: 设$p(x)\in K[x]$具有一个根$\alpha\in L$, 不妨设$p(x)$不可约.
+    设$\beta\in\overline{K}$是$p(x)$的另一个根, 由于$p(x)$不可约, 所以存在固定$K$不动的同构$K(\alpha)\to K(\beta)$.
+    按照同构延拓定理 (定理~\ref{iso ext thm}), 这个同构可以延拓为$\overline{K}$的自同构$\sigma:\overline{K}\to\overline{K}$
+    \[\begin{tikzcd}
+        K \ar[d, "="] \ar[r] & K(\alpha) \ar[d, "\sim"] \ar[r] & \overline{K} \ar[d, "\sigma"]\\
+        K \ar[r] & K(\beta) \ar[r] & \overline{K}
+    \end{tikzcd}\]
+    那么按照假设, $\sigma$将$L$中的$\alpha$映成$L$中的$\beta$, 即$\beta\in L$.
+    从而$p(x)$的根均在$L$中, $p(x)$在$L[x]$中分裂.
+\end{proof}
+
+然后我们关心一个多项式的根是不是都是不同的, 与此相关的则是可分扩张的概念.
+\begin{defn}
+    设$K$是域, $f(x)\in K[x]$, 如果$f(x)$在$\overline{K}$中没有重根, 那么称$f(x)$是一个\textbf{可分多项式}.
+    如果$K\subset L$, $\alpha\in L$是一个可分多项式的根, 那么称$\alpha$是\textbf{可分元}.
+    如果$L/K$中每个元素都是可分的, 那么称$L/K$是\textbf{可分扩张}.
+\end{defn}
+
+\subsection{Galois扩张}
+
+\begin{defn}
+    设$K\subset L$是域扩张, 如果$L/K$同时是正规且可分的扩张, 那么称$L/K$为\textbf{Galois扩张}.
+\end{defn}
+
+我们将会看到, Galois扩张具有良好的性质.
+
+在讨论Galois扩张之前, 我们需要引入\textit{Galois群}和\textit{不动域}的概念.
+在同构延拓定理中我们得到了一类固定底域不动的域同构, 如果这些同构是一个扩域到自身的自同构, 那么将其收集起来可以得到一个群.
+那么我们便得到了定义:
+\begin{defn}
+    设$K\subset L$是域扩张, $L$固定$K$不动的\textbf{Galois群} (当$K$指代明确时, 也称为$L$的Galois群) 定义为所有固定$K$不动的$L$自同构, 记为$\Gal(L/K)$.
+\end{defn}
+
+同时我们还会反过来考虑, $\Gal(L/K)$或者它的子群$G$固定的元素可能还有$K$之外的元素.
+容易证明$G$固定的元素构成一个域, 我们便得到了定义
+\begin{defn}
+    设$K\subset L$是域扩张, $\Gal(L/K)$的子群$G$的\textbf{固定域}是$L$中所有在$G$作用下固定不动的元素构成的子域, 记为$L^G$.
+\end{defn}
+
+有了以上概念之后, 我们可以来讨论有限Galois扩张的性质.
+
+\begin{prop}\label{property of galois ext 1}
+    对有限域扩张$K\subset L$, 以下命题等价:
+    \begin{enumerate}[\rm (1)]
+        \item $L/K$是Galois扩张, 即$L/K$正规且可分;
+        \item $[L:K]=|\Gal(L/K)|$;
+        \item $K=L^{\Gal(L/K)}$;
+        \item $L$是某个可分多项式的分裂域.
+    \end{enumerate}
+\end{prop}
+
+在证明命题~\ref{property of galois ext 1}~之前, 我们需要一个引理.
+
+\begin{lem}\label{artin}
+    设$L/K$是有限扩张, $X$是域, $\sigma:K\to X$是嵌入.
+    那么使得下图交换的嵌入$L\to X$至多有$[L:K]$个.
+    \[\begin{tikzcd}
+        K \ar[r] \ar[d,"\sigma"] & L \ar[ld, dashed] \\
+        X & 
+    \end{tikzcd}\]
+\end{lem}
+\begin{proof}
+    当$L/K$是单扩张, 即$L=K(\alpha)$时, $\alpha$具有$[L:K]$次的极小多项式$p$.
+    对于任意一个嵌入$f:L\to X$, 有$f(L)=f(K)(f(\alpha))$, 那么对于不同的嵌入, $\alpha$的像均不同.
+    但$\alpha$的像均为$f(p)$的根, 由Lagrange定理, 根至多有$[L:K]$个, 所以嵌入至多有$[L:K]$个.
+    对一般的$L=K(\alpha_1,\cdots,\alpha_n)$, 考虑扩张链
+    \[K\subset K(\alpha_1)\subset\cdots\subset K(\alpha_1,\cdots,\alpha_n)=L\]
+    我们可以将$\sigma$提升$n-1$次, 每次从$K(\alpha_1,\cdots,\alpha_{i})$到$K(\alpha_1,\cdots,\alpha_{i+1})$, 每次提升至多有$[K(\alpha_1,\cdots,\alpha_{i+1}):K(\alpha_1,\cdots,\alpha_{i})]$种取法.
+    因此至多有
+    \[[K(\alpha_1):K]\cdots[K(\alpha_1,\cdots,\alpha_{n}):K(\alpha_1,\cdots,\alpha_{n-1})]=[L:K]\]
+    个嵌入.
+\end{proof}
+
+\begin{proof}[命题~\ref{property of galois ext 1}~的证明]
+    我们按照$(1)\implies(2)\implies(3)\implies(4)\implies(1)$的顺序证明他们等价.\\
+    $(1)\implies(2)$: 考虑在引理~\ref{artin}~中取$X=\overline{K}$, 不妨设$L\subset\overline{K}$.
+    由于$L$是正规扩张, 所有保持$K$不动的嵌入$L\to\overline{K}$均将$L$映为自身, 从而刚好构成$\Gal(L/K)$.
+    而由于$L$是可分扩张, 每个单扩张的极小多项式在$\overline{K}$中恰好有其次数个根, 所以引理~\ref{artin}~中的等号全部成立.
+    因此就有$\Gal(L/K)=[L:K]$.\\
+    $(2)\implies(3)$: 注意到$K\subset L^{\Gal(L/K)}\subset L$, 而$L$固定$L^{\Gal(L/K)}$不动的自同构有$|\Gal(L/K)|$个, 因此由引理可以得到
+    \[[L:K]=|\Gal(L/K)|\leq [L:L^{\Gal(L/K)}]\leq [L:K]\]
+    因此$[L:K]=[L:L^{\Gal(L/K)}]$, 所以$K=L^{\Gal(L/K)}$.\\
+    $(3)\implies(4)$: 设$L=K(\alpha_1,\cdots,\alpha_n)$, 为每个$\alpha_i$定义多项式
+    \[f_i(x)=\prod_{\sigma\in\Gal(L/K)}(x-\sigma(\alpha_i))\]
+    由于$\alpha_i\notin K$, 所以每个$\sigma(\alpha_i)$均不相同, $f_i$是可分的; 而$f_i$的系数被$\Gal(L/K)$中的所有元素固定, 在$L^{\Gal(L/K)}=K$中, 所以$f_i(x)\in K[x]$.
+    那么取$f=f_1f_2\cdots f_n$, 可知$L$是$f$的分裂域, 且$f$是可分的.\\
+    $(4)\implies(1)$: 平凡.
+\end{proof}
+
+\section{Galois理论基本定理}
+
+我们在本节陈述并证明Galois理论基本定理.
+
+\begin{thm}[Galois理论基本定理]
+    设$K\subset L$是有限Galois扩张, 中间域$K\subset M\subset L$, 子群$1\subset H\subset\Gal(L/K)$.
+    那么存在对应
+    \[\begin{tikzcd}
+        M \ar[r, mapsto] & \Gal(L/M)\\
+        L^H & \ar[l, mapsto] H
+    \end{tikzcd}\]
+    满足$M=L^{\Gal(L/M)},H=\Gal(L/L^H)$.
+    特别地, 如果$\Gal(L/M)\lhd\Gal(L/K)$, 那么$M/K$是正规扩张.
+\end{thm}
